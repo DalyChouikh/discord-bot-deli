@@ -35,11 +35,7 @@ public class Bot {
                   GatewayIntent.MESSAGE_CONTENT };
 
       public static void main(String[] args) throws Exception {
-            Properties config = new Properties();
-            try (InputStream in = new FileInputStream("config.properties")) {
-                  config.load(in);
-            }
-            String token = config.getProperty("TOKEN");
+            String token = System.getenv("TOKEN");
             JDA bot = JDABuilder.create(Arrays.asList(INTENTS))
                         .enableCache(CacheFlag.VOICE_STATE, CacheFlag.EMOJI)
                         .setToken(token)
