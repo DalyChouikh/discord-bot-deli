@@ -1,6 +1,4 @@
-package com.discord.commands.music;
-
-import com.discord.commands.Help;
+package com.discord.commands;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;

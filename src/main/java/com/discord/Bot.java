@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Properties;
 
 import com.discord.commands.Help;
+import com.discord.commands.SlashHelp;
 import com.discord.commands.music.Go;
 import com.discord.commands.music.Lyrics;
 import com.discord.commands.music.NowPlaying;
@@ -15,7 +16,6 @@ import com.discord.commands.music.Queue;
 import com.discord.commands.music.Remove;
 import com.discord.commands.music.Seek;
 import com.discord.commands.music.Skip;
-import com.discord.commands.music.SlashHelp;
 import com.discord.commands.music.Stop;
 import com.discord.commands.trivia.Trivia;
 
