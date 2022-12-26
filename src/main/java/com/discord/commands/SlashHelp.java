@@ -10,7 +10,7 @@ public class SlashHelp extends ListenerAdapter {
         if (event.getName().equalsIgnoreCase("help")) {
             EmbedBuilder embed = new EmbedBuilder();
             embed.setAuthor("Deli", null,
-                    "https://cdn.discordapp.com/avatars/917074546933260399/a99e6a07c0176d4119db2a0d5ce523f6.webp?size=80")
+                    "https://cdn.discordapp.com/avatars/917074546933260399/0a8290bb752d9f70e2b1af21e017b853.webp?size=80")
                     .setTitle("Commands :")
                     .addField("👂 Want to hear a song?:", "`-play [Song name | URL]` : Plays a given song", false)
                     .addField("❓ Questioning about the author for the current song?:",
