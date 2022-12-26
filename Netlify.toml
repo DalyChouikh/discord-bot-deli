@@ -1,11 +1,12 @@
 [build]
-  command = "mvn package"
+  command = "bash deps.sh && bash -c 'export PATH=$PATH:/usr/local/maven/bin && mvn package'"
   functions = "target/functions"
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
 
 [context.production.environment]
   TOKEN=OTE3MDc0NTQ2OTMzMjYwMzk5.Gcfjds.rXfT-5ctvn1iwN04tTEAU2lTWr7pIKe7vVDvdw
