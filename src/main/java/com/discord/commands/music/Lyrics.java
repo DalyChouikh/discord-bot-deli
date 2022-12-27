@@ -102,8 +102,8 @@ public class Lyrics extends ListenerAdapter {
                         }
                     } catch (IOException | NullPointerException e) {
                         EmbedBuilder embed = new EmbedBuilder();
-                        embed.setAuthor(":tools: This is command is under maintenance")
-                                .setTitle(":watch: Thank you for your patience")
+                        embed.setAuthor("🛠️ This command is under maintenance")
+                                .setTitle("⌚ Thank you for your patience")
                                 .setColor(15844367)
                                 .setFooter("Developed by Daly#3068 ❤️",
                                         "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
