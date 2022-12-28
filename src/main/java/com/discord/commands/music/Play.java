@@ -70,7 +70,7 @@ public class Play extends ListenerAdapter {
                 if (!isUrl(link)) {
                     link = "ytsearch:" + link + " audio";
                 } else {
-                    link = content[1];
+                    link = content[1].split("&")[0];
                 }
 
                 PlayerManager.getInstance().loadAndPlay(channel, link);
