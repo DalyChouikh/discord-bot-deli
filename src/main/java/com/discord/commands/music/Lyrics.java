@@ -61,7 +61,7 @@ public class Lyrics extends ListenerAdapter {
                                         String title = audioPlayer.getPlayingTrack().getInfo().title;
                                         title = title.replaceAll("(?i)Official", "").replaceAll("(?i)Music", "")
                                                         .replaceAll("Stream", "").replaceAll("Video", "")
-                                                        .replaceAll("\\([^\\(]*\\)|\\[[^\\[]*\\]", "")
+                                                        .replaceAll("\\([^\\(]*\\)|\\[[^\\[]*\\]", "").replaceAll("&", "")
                                                         .replaceAll(" ", "%20");
                                         try {
                                                 ObjectMapper mapper = new ObjectMapper();
