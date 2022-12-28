@@ -60,9 +60,8 @@ public class Lyrics extends ListenerAdapter {
                                 } else {
                                         String title = audioPlayer.getPlayingTrack().getInfo().title;
                                         title = title.replaceAll("(?i)Official", "").replaceAll("(?i)Music", "")
-                                                        .replaceAll("(?i)Video", "").replaceAll("\\(|\\)", "")
-                                                        .replaceAll("\\[|\\]", "")
-                                                        .replaceAll("(?i)Lyrics|Lyric", "").replaceAll("(?i)Clip", "")
+                                                        .replaceAll("Stream", "").replaceAll("Video", "")
+                                                        .replaceAll("\\([^\\(]*\\)|\\[[^\\[]*\\]", "")
                                                         .replaceAll(" ", "%20").split("ft")[0];
                                         try {
                                                 ObjectMapper mapper = new ObjectMapper();
