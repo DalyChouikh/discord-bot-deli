@@ -62,7 +62,7 @@ public class Lyrics extends ListenerAdapter {
                                         title = title.replaceAll("(?i)Official", "").replaceAll("(?i)Music", "")
                                                         .replaceAll("Stream", "").replaceAll("Video", "")
                                                         .replaceAll("\\([^\\(]*\\)|\\[[^\\[]*\\]", "")
-                                                        .replaceAll(" ", "%20").split("ft")[0];
+                                                        .replaceAll(" ", "%20");
                                         try {
                                                 ObjectMapper mapper = new ObjectMapper();
                                                 HttpRequest requestId = HttpRequest.newBuilder()
