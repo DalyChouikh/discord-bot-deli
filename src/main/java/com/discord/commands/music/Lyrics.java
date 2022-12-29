@@ -58,11 +58,11 @@ public class Lyrics extends ListenerAdapter {
                                         event.getChannel().sendMessageEmbeds(embed.build()).queue();
                                         return;
                                 } else {
-                                        String title = audioPlayer.getPlayingTrack().getInfo().title;
+                                        String title = audioPlayer.getPlayingTrack().getInfo().title.replaceAll(" ", "%20");
                                         title = title.replaceAll("(?i)Official", "").replaceAll("(?i)Music", "")
                                                         .replaceAll("Stream", "").replaceAll("Video", "")
                                                         .replaceAll("\\([^\\(]*\\)|\\[[^\\[]*\\]", "").replaceAll("&", "")
-                                                        .replaceAll(" ", "%20");
+                                                        .split("ft")[0].split("feat")[0];
                                         try {
                                                 ObjectMapper mapper = new ObjectMapper();
                                                 HttpRequest requestId = HttpRequest.newBuilder()
@@ -151,7 +151,6 @@ public class Lyrics extends ListenerAdapter {
                                                                                         "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
                                                         event.getChannel().sendMessageEmbeds(embed.build()).queue();
                                                         return;
-
                                                 }
                                         } catch (IOException | NullPointerException | InterruptedException e) {
                                                 e.printStackTrace();
