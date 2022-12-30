@@ -70,7 +70,7 @@ public class Lyrics extends ListenerAdapter {
                                         try {
                                                 ObjectMapper mapper = new ObjectMapper();
                                                 HttpRequest requestId = HttpRequest.newBuilder()
-                                                                .uri(URI.create("https://genius-song-lyrics1.p.rapidapi.com/search?q="
+                                                                .uri(URI.create("https://genius-song-lyrics1.p.rapidapi.com/search/?q="
                                                                                 + title))
                                                                 .header("X-RapidAPI-Key", System.getenv("KEY"))
                                                                 .header("X-RapidAPI-Host", System.getenv("HOST"))
@@ -79,14 +79,12 @@ public class Lyrics extends ListenerAdapter {
                                                 HttpResponse<String> responseId = HttpClient.newHttpClient()
                                                                 .send(requestId, HttpResponse.BodyHandlers.ofString());
                                                 JsonNode song = mapper.readTree(responseId.body());
-                                                JsonNode songId = song.get("hits");
-                                                for (JsonNode hit : songId) {
+                                                for (JsonNode hit : song.get("hits")) {
                                                         try {
                                                                 HttpRequest requestLyrics = HttpRequest.newBuilder()
-                                                                                .uri(URI.create("https://genius-song-lyrics1.p.rapidapi.com/songs/"
+                                                                                .uri(URI.create("https://genius-song-lyrics1.p.rapidapi.com/song/lyrics/?id="
                                                                                                 + hit.get("result").get(
-                                                                                                                "id")
-                                                                                                + "/lyrics"))
+                                                                                                                "id")))
                                                                                 .header("X-RapidAPI-Key",
                                                                                                 System.getenv("KEY"))
                                                                                 .header("X-RapidAPI-Host",
@@ -104,15 +102,12 @@ public class Lyrics extends ListenerAdapter {
                                                                                 .get("lyrics")
                                                                                 .get("body")
                                                                                 .get("html");
-                                                                JEditorPane editorPane = new JEditorPane();
-                                                                editorPane.setContentType("text/plain");
-                                                                editorPane.setText(html.asText());
-                                                                String text = editorPane.getText();
+                                                                String lyric = html.asText().replaceAll("<.*?>", "");
                                                                 URI uri = URI.create(audioPlayer.getPlayingTrack()
                                                                                 .getInfo().uri);
                                                                 String videoID = uri.getQuery().split("=")[1];
                                                                 String url = "http://img.youtube.com/vi/" + videoID
-                                                                                + "/0.jpg";
+                                                                                + "/0.jpg";;
                                                                 EmbedBuilder embed = new EmbedBuilder();
                                                                 embed.setAuthor(
                                                                                 "📀 Now Playing (Lyrics requested by "
@@ -133,13 +128,10 @@ public class Lyrics extends ListenerAdapter {
                                                                                 .setFooter("Developed by Daly#3068 ❤️",
                                                                                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
                                                                 try {
-                                                                        embed.setDescription(text);
+                                                                        embed.setDescription(lyric);
                                                                 } catch (IllegalArgumentException e) {
-                                                                        embed.setDescription(
-                                                                                        text.substring(0, 4095))
-                                                                                        .addField("", text
-                                                                                                        .substring(4095, text
-                                                                                                                        .length()),
+                                                                        embed.setDescription(lyric.substring(0, 4095))
+                                                                                        .addField("", lyric.substring(4095, lyric.length()),
                                                                                                         false);
                                                                 }
                                                                 event.getChannel().sendMessageEmbeds(embed.build())
