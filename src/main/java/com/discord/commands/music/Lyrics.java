@@ -58,11 +58,12 @@ public class Lyrics extends ListenerAdapter {
                                         event.getChannel().sendMessageEmbeds(embed.build()).queue();
                                         return;
                                 } else {
-                                        String title = audioPlayer.getPlayingTrack().getInfo().title.replaceAll(" ", "%20");
+                                        String title = audioPlayer.getPlayingTrack().getInfo().title.replaceAll(" ",
+                                                        "%20");
                                         title = title.replaceAll("(?i)Official", "").replaceAll("(?i)Music", "")
                                                         .replaceAll("Stream", "").replaceAll("Video", "")
-                                                        .replaceAll("\\([^\\(]*\\)|\\[[^\\[]*\\]", "").replaceAll("&", "")
-                                                        .split("ft")[0].split("feat")[0];
+                                                        .replaceAll("\\([^\\(]*\\)|\\[[^\\[]*\\]", "")
+                                                        .replaceAll("&", " ").split("ft")[0].split("feat")[0];
                                         try {
                                                 ObjectMapper mapper = new ObjectMapper();
                                                 HttpRequest requestId = HttpRequest.newBuilder()
@@ -72,90 +73,84 @@ public class Lyrics extends ListenerAdapter {
                                                                 .header("X-RapidAPI-Host", System.getenv("HOST"))
                                                                 .method("GET", HttpRequest.BodyPublishers.noBody())
                                                                 .build();
-                                                HttpResponse<String> responseId = HttpClient.newHttpClient().send(
-                                                                requestId,
-                                                                HttpResponse.BodyHandlers.ofString());
-                                                try {
-                                                        JsonNode song = mapper.readTree(responseId.body());
-                                                        JsonNode songId = song.get("response")
-                                                                        .get("hits")
-                                                                        .get(0)
-                                                                        .get("result")
-                                                                        .get("id");
-                                                        HttpRequest requestLyrics = HttpRequest.newBuilder()
-                                                                        .uri(URI.create(
-                                                                                        "https://genius-song-lyrics1.p.rapidapi.com/songs/"
-                                                                                                        + songId.asInt()
-                                                                                                        + "/lyrics"))
-                                                                        .header("X-RapidAPI-Key", System.getenv("KEY"))
-                                                                        .header("X-RapidAPI-Host",
-                                                                                        System.getenv("HOST"))
-                                                                        .method("GET", HttpRequest.BodyPublishers
-                                                                                        .noBody())
-                                                                        .build();
-                                                        HttpResponse<String> responseLyrics = HttpClient.newHttpClient()
-                                                                        .send(requestLyrics,
-                                                                                        HttpResponse.BodyHandlers
-                                                                                                        .ofString());
-                                                        JsonNode lyrics = mapper.readTree(responseLyrics.body());
-                                                        JsonNode dom = lyrics.get("response")
-                                                                        .get("lyrics")
-                                                                        .get("lyrics")
-                                                                        .get("body")
-                                                                        .get("plain");
-                                                        URI uri = URI.create(
-                                                                        audioPlayer.getPlayingTrack().getInfo().uri);
-                                                        String videoID = uri.getQuery().split("=")[1];
-                                                        String url = "http://img.youtube.com/vi/" + videoID + "/0.jpg";
-                                                        EmbedBuilder embed = new EmbedBuilder();
-                                                        embed.setAuthor(
-                                                                        "📀 Now Playing (Lyrics requested by " + event
-                                                                                        .getMember().getUser().getName()
-                                                                                        + "#"
-                                                                                        + event.getMember().getUser()
-                                                                                                        .getDiscriminator()
-                                                                                        + ")",
-                                                                        null,
-                                                                        event.getMember().getUser()
-                                                                                        .getEffectiveAvatarUrl())
-                                                                        .setTitle(title.replaceAll("%20", " "))
-                                                                        .setThumbnail(url)
-                                                                        .setColor(15844367)
-                                                                        .setFooter("Developed by Daly#3068 ❤️",
-                                                                                        "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                                                HttpResponse<String> responseId = HttpClient.newHttpClient()
+                                                                .send(requestId, HttpResponse.BodyHandlers.ofString());
+                                                JsonNode song = mapper.readTree(responseId.body());
+                                                JsonNode songId = song.get("response")
+                                                                .get("hits");
+                                                for (JsonNode hit : songId) {
                                                         try {
-                                                                embed.setDescription(dom.asText());
-
-                                                        } catch (IllegalArgumentException e) {
-                                                                System.out.println("Code went here");
-                                                                embed.setDescription(dom.asText().substring(0, 4095))
-                                                                                .addField("", dom.asText().substring(
-                                                                                                4095,
-                                                                                                dom.asText().length()),
-                                                                                                false);
-
+                                                                HttpRequest requestLyrics = HttpRequest.newBuilder()
+                                                                                .uri(URI.create("https://genius-song-lyrics1.p.rapidapi.com/songs/"
+                                                                                                + hit.get("result").get(
+                                                                                                                "id")
+                                                                                                + "/lyrics"))
+                                                                                .header("X-RapidAPI-Key",
+                                                                                                System.getenv("KEY"))
+                                                                                .header("X-RapidAPI-Host",
+                                                                                                System.getenv("HOST"))
+                                                                                .method("GET", HttpRequest.BodyPublishers
+                                                                                                .noBody())
+                                                                                .build();
+                                                                HttpResponse<String> responseLyrics = HttpClient
+                                                                                .newHttpClient().send(requestLyrics,
+                                                                                                HttpResponse.BodyHandlers
+                                                                                                                .ofString());
+                                                                JsonNode lyrics = mapper
+                                                                                .readTree(responseLyrics.body());
+                                                                JsonNode dom = lyrics.get("response")
+                                                                                .get("lyrics")
+                                                                                .get("lyrics")
+                                                                                .get("body")
+                                                                                .get("plain");
+                                                                System.out.println(dom.asText());
+                                                                URI uri = URI.create(audioPlayer.getPlayingTrack()
+                                                                                .getInfo().uri);
+                                                                String videoID = uri.getQuery().split("=")[1];
+                                                                String url = "http://img.youtube.com/vi/" + videoID
+                                                                                + "/0.jpg";
+                                                                EmbedBuilder embed = new EmbedBuilder();
+                                                                embed.setAuthor(
+                                                                                "📀 Now Playing (Lyrics requested by "
+                                                                                                + event.getMember()
+                                                                                                                .getUser()
+                                                                                                                .getName()
+                                                                                                + "#"
+                                                                                                + event.getMember()
+                                                                                                                .getUser()
+                                                                                                                .getDiscriminator()
+                                                                                                + ")",
+                                                                                null,
+                                                                                event.getMember().getUser()
+                                                                                                .getEffectiveAvatarUrl())
+                                                                                .setTitle(title.replaceAll("%20", " "))
+                                                                                .setThumbnail(url)
+                                                                                .setColor(15844367)
+                                                                                .setFooter("Developed by Daly#3068 ❤️",
+                                                                                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                                                                try {
+                                                                        embed.setDescription(dom.asText());
+                                                                } catch (IllegalArgumentException e) {
+                                                                        System.out.println("Code went here");
+                                                                        embed.setDescription(
+                                                                                        dom.asText().substring(0, 4095))
+                                                                                        .addField("", dom.asText()
+                                                                                                        .substring(4095, dom
+                                                                                                                        .asText()
+                                                                                                                        .length()),
+                                                                                                        false);
+                                                                }
+                                                                event.getChannel().sendMessageEmbeds(embed.build())
+                                                                                .queue();
+                                                                break;
+                                                        } catch (NullPointerException e) {
+                                                                continue;
                                                         }
-                                                        event.getChannel().sendMessageEmbeds(embed.build()).queue();
-                                                } catch (NullPointerException e) {
-                                                        EmbedBuilder embed = new EmbedBuilder();
-                                                        embed.setAuthor(
-                                                                        "⛔ No lyrics were found (Requested by "
-                                                                                        + event.getMember().getUser()
-                                                                                                        .getName()
-                                                                                        + "#"
-                                                                                        + event.getMember().getUser()
-                                                                                                        .getDiscriminator()
-                                                                                        + ")")
-                                                                        .setColor(15844367)
-                                                                        .setFooter("Developed by Daly#3068 ❤️",
-                                                                                        "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                                                        event.getChannel().sendMessageEmbeds(embed.build()).queue();
-                                                        return;
                                                 }
                                         } catch (IOException | NullPointerException | InterruptedException e) {
                                                 e.printStackTrace();
                                                 EmbedBuilder embed = new EmbedBuilder();
-                                                embed.setAuthor("🚫 An Error Occurred, Please try again")
+                                                embed.setAuthor("❌ No lyrics found")
                                                                 .setColor(15844367)
                                                                 .setFooter("Developed by Daly#3068 ❤️",
                                                                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
