@@ -6,6 +6,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import javax.swing.JEditorPane;
+
 import com.discord.LavaPlayer.GuildMusicManager;
 import com.discord.LavaPlayer.PlayerManager;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -58,13 +60,13 @@ public class Lyrics extends ListenerAdapter {
                                         event.getChannel().sendMessageEmbeds(embed.build()).queue();
                                         return;
                                 } else {
-                                        //test
                                         String title = audioPlayer.getPlayingTrack().getInfo().title;
                                         title = title.replaceAll("(?i)Official", "").replaceAll("(?i)Music", "")
                                                         .replaceAll("Stream", "").replaceAll("Video", "")
                                                         .replaceAll("\\([^\\(]*\\)|\\[[^\\[]*\\]", "")
-                                                        .replaceAll("&", " ").split("(?<!\\w)ft(?!\\w)")[0].split("(?<!\\w)feat(?!\\w)")[0].replaceAll(" ",
-                                                        "%20");
+                                                        .replaceAll("&", " ").split("(?<!\\w)ft(?!\\w)")[0]
+                                                        .split("(?<!\\w)feat(?!\\w)")[0].replaceAll(" ",
+                                                                        "%20");
                                         try {
                                                 ObjectMapper mapper = new ObjectMapper();
                                                 HttpRequest requestId = HttpRequest.newBuilder()
@@ -77,8 +79,7 @@ public class Lyrics extends ListenerAdapter {
                                                 HttpResponse<String> responseId = HttpClient.newHttpClient()
                                                                 .send(requestId, HttpResponse.BodyHandlers.ofString());
                                                 JsonNode song = mapper.readTree(responseId.body());
-                                                JsonNode songId = song.get("response")
-                                                                .get("hits");
+                                                JsonNode songId = song.get("hits");
                                                 for (JsonNode hit : songId) {
                                                         try {
                                                                 HttpRequest requestLyrics = HttpRequest.newBuilder()
@@ -99,11 +100,14 @@ public class Lyrics extends ListenerAdapter {
                                                                                                                 .ofString());
                                                                 JsonNode lyrics = mapper
                                                                                 .readTree(responseLyrics.body());
-                                                                JsonNode dom = lyrics.get("response")
-                                                                                .get("lyrics")
+                                                                JsonNode html = lyrics.get("lyrics")
                                                                                 .get("lyrics")
                                                                                 .get("body")
-                                                                                .get("plain");
+                                                                                .get("html");
+                                                                JEditorPane editorPane = new JEditorPane();
+                                                                editorPane.setContentType("text/plain");
+                                                                editorPane.setText(html.asText());
+                                                                String text = editorPane.getText();
                                                                 URI uri = URI.create(audioPlayer.getPlayingTrack()
                                                                                 .getInfo().uri);
                                                                 String videoID = uri.getQuery().split("=")[1];
@@ -129,13 +133,12 @@ public class Lyrics extends ListenerAdapter {
                                                                                 .setFooter("Developed by Daly#3068 ❤️",
                                                                                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
                                                                 try {
-                                                                        embed.setDescription(dom.asText());
+                                                                        embed.setDescription(text);
                                                                 } catch (IllegalArgumentException e) {
                                                                         embed.setDescription(
-                                                                                        dom.asText().substring(0, 4095))
-                                                                                        .addField("", dom.asText()
-                                                                                                        .substring(4095, dom
-                                                                                                                        .asText()
+                                                                                        text.substring(0, 4095))
+                                                                                        .addField("", text
+                                                                                                        .substring(4095, text
                                                                                                                         .length()),
                                                                                                         false);
                                                                 }
