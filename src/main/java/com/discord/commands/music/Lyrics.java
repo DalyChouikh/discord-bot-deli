@@ -103,7 +103,6 @@ public class Lyrics extends ListenerAdapter {
                                                                                 .get("lyrics")
                                                                                 .get("body")
                                                                                 .get("plain");
-                                                                System.out.println(dom.asText());
                                                                 URI uri = URI.create(audioPlayer.getPlayingTrack()
                                                                                 .getInfo().uri);
                                                                 String videoID = uri.getQuery().split("=")[1];
@@ -131,7 +130,6 @@ public class Lyrics extends ListenerAdapter {
                                                                 try {
                                                                         embed.setDescription(dom.asText());
                                                                 } catch (IllegalArgumentException e) {
-                                                                        System.out.println("Code went here");
                                                                         embed.setDescription(
                                                                                         dom.asText().substring(0, 4095))
                                                                                         .addField("", dom.asText()
