@@ -8,27 +8,19 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class Seek extends ListenerAdapter {
-    public void onMessageReceived(MessageReceivedEvent event) {
-        if (event.getAuthor().isBot()) {
-            return;
-        }
-        if (!event.isFromGuild()) {
-            return;
-        }
-        String[] message = event.getMessage().getContentRaw().split(" ");
-        if (message[0].equalsIgnoreCase("-seek")) {
-            if (message.length != 2) {
+    public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
+        if (event.getName().equalsIgnoreCase("seek")) {
+            if (event.getOptionsByName("position").isEmpty()) {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 You need to provide the song number in the queue")
-                        .setTitle("👉  You can use -seek [Song position in queue]")
                         .setColor(15844367)
                         .setFooter("Developed by Daly#3068 ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                event.getChannel().sendMessageEmbeds(embed.build()).queue();
+                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
             if (!event.getMember().getVoiceState().inAudioChannel()) {
@@ -37,31 +29,30 @@ public class Seek extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly#3068 ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                event.getChannel().sendMessageEmbeds(embed.build()).queue();
+                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
             if (!event.getGuild().getAudioManager().isConnected()) {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 I need to join a Voice channel first")
-                        .setTitle("👉 You can use -play [song name/URL]")
                         .setColor(15844367)
                         .setFooter("Developed by Daly#3068 ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                event.getChannel().sendMessageEmbeds(embed.build()).queue();
+                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
             final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
             final AudioPlayer audioPlayer = musicManager.audioPlayer;
             try {
-                int queue = Integer.parseInt(message[1]) - 1;
+                int queue = event.getOption("position").getAsInt() - 1;
                 if (queue == 0 && audioPlayer.getPlayingTrack() != null) {
                     EmbedBuilder embed = new EmbedBuilder();
                     embed.setAuthor("⛔ To seek the current song infos")
-                            .setTitle("👉 You can use -now")
+                            .setTitle("👉 Use /now")
                             .setColor(15844367)
                             .setFooter("Developed by Daly#3068 ❤️",
                                     "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                    event.getChannel().sendMessageEmbeds(embed.build()).queue();
+                    event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                     return;
                 } else if (queue == 0 && audioPlayer.getPlayingTrack() == null) {
                     EmbedBuilder embed = new EmbedBuilder();
@@ -69,7 +60,7 @@ public class Seek extends ListenerAdapter {
                             .setColor(15844367)
                             .setFooter("Developed by Daly#3068 ❤️",
                                     "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                    event.getChannel().sendMessageEmbeds(embed.build()).queue();
+                    event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                     return;
                 } else if (queue > musicManager.scheduler.queue.size()) {
                     EmbedBuilder embed = new EmbedBuilder();
@@ -77,7 +68,7 @@ public class Seek extends ListenerAdapter {
                             .setColor(15844367)
                             .setFooter("Developed by Daly#3068 ❤️",
                                     "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                    event.getChannel().sendMessageEmbeds(embed.build()).queue();
+                    event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                     return;
                 } else {
                     String next;
@@ -105,12 +96,8 @@ public class Seek extends ListenerAdapter {
                             String url = "http://img.youtube.com/vi/" + videoID + "/0.jpg";
                             Long duration = needTrack.getDuration();
                             EmbedBuilder embed = new EmbedBuilder();
-                            embed.setAuthor(
-                                    "🎵 " + track.getInfo().title + " (Requested by "
-                                            + event.getMember().getUser().getName()
-                                            + "#"
-                                            + event.getMember().getUser().getDiscriminator() + ")",
-                                    null, event.getMember().getUser().getEffectiveAvatarUrl())
+                            embed.setTitle(
+                                    "🎵 " + track.getInfo().title , track.getInfo().uri)
                                     .setThumbnail(url)
                                     .addField("Now ", now, true)
                                     .addField("Next", next, true)
@@ -122,11 +109,11 @@ public class Seek extends ListenerAdapter {
                                             "🕐 " + String.format("%02d:%02d:%02d", apprTime / 1000 / 60 / 60,
                                                     apprTime / 1000 / 60 % 60, apprTime / 1000 % 60),
                                             true)
-                                    .addField("Postion in Queue ", Integer.toString(queue + 1), true)
+                                    .addField("Position in Queue ", Integer.toString(queue + 1), true)
                                     .setColor(15844367)
                                     .setFooter("Developed by Daly#3068 ❤️",
                                             "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                            event.getChannel().sendMessageEmbeds(embed.build()).queue();
+                            event.replyEmbeds(embed.build()).setEphemeral(false).queue();
                             return;
                         }
                         i++;
@@ -135,11 +122,10 @@ public class Seek extends ListenerAdapter {
             } catch (NumberFormatException e) {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("⛔ Please enter a valid number")
-                        .setTitle("👉 Use --seek [Song position in queue]")
                         .setColor(15844367)
                         .setFooter("Developed by Daly#3068 ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                event.getChannel().sendMessageEmbeds(embed.build()).queue();
+                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
 

@@ -7,54 +7,36 @@ import com.discord.LavaPlayer.PlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class Go extends ListenerAdapter {
-    public void onMessageReceived(MessageReceivedEvent event) {
-        if (event.getAuthor().isBot()) {
-            return;
-        }
-        if (!event.isFromGuild()) {
-            return;
-        }
-        String[] message = event.getMessage().getContentRaw().split(" ");
-        if (message[0].equalsIgnoreCase("-go")) {
+    public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
+        if (event.getName().equalsIgnoreCase("go")) {
             final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
             final AudioPlayer audioPlayer = musicManager.audioPlayer;
-            if (message.length != 3) {
-                EmbedBuilder embed = new EmbedBuilder();
-                embed.setAuthor("🔊 To use the go command properly")
-                        .setTitle("👉 Use -go [b(backward) | f(forward)] [amount in seconds]")
-                        .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                event.getChannel().sendMessageEmbeds(embed.build()).queue();
-                return;
-            }
             if (!event.getMember().getVoiceState().inAudioChannel()) {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 You need to join a Voice channel")
                         .setColor(15844367)
                         .setFooter("Developed by Daly#3068 ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                event.getChannel().sendMessageEmbeds(embed.build()).queue();
+                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
             if (!event.getGuild().getAudioManager().isConnected()) {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 I need to join a Voice channel first")
-                        .setTitle("👉 You can use -play [song name/URL]")
                         .setColor(15844367)
                         .setFooter("Developed by Daly#3068 ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                event.getChannel().sendMessageEmbeds(embed.build()).queue();
+                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
             if (audioPlayer.getPlayingTrack() != null) {
-                if (message[1].equalsIgnoreCase("b")) {
+                if (event.getOption("direction").getAsString().equalsIgnoreCase("backward")) {
                     try {
-                        Long amount = Long.parseLong(message[2]);
+                        Long amount = event.getOption("position").getAsLong();
                         audioPlayer.getPlayingTrack()
                                 .setPosition(audioPlayer.getPlayingTrack().getPosition() - (amount * 1000));
                         URI uri = URI.create(audioPlayer.getPlayingTrack().getInfo().uri);
@@ -76,7 +58,7 @@ public class Go extends ListenerAdapter {
                                         + event.getMember().getUser().getDiscriminator() + ")",
                                 null, event.getMember().getUser().getEffectiveAvatarUrl())
                                 .setThumbnail(url)
-                                .setTitle("🎵 " + audioPlayer.getPlayingTrack().getInfo().title)
+                                .setTitle("🎵 " + audioPlayer.getPlayingTrack().getInfo().title, audioPlayer.getPlayingTrack().getInfo().uri)
                                 .addField("Played",
                                         "🕐 " + String.format("%02d:%02d:%02d", lhours, lminutes, lseconds) + "/"
                                                 + String.format("%02d:%02d:%02d", hours, minutes, seconds),
@@ -84,22 +66,21 @@ public class Go extends ListenerAdapter {
                                 .setColor(15844367)
                                 .setFooter("Developed by Daly#3068 ❤️",
                                         "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                        event.getChannel().sendMessageEmbeds(embed.build()).queue();
+                        event.replyEmbeds(embed.build()).setEphemeral(false).queue();
                         return;
                     } catch (NumberFormatException e) {
                         EmbedBuilder embed = new EmbedBuilder();
                         embed.setAuthor("⛔ Please enter a valid number")
-                                .setTitle("👉 Use --go [b(backward) | f(forward)] [amount in seconds]")
                                 .setColor(15844367)
                                 .setFooter("Developed by Daly#3068 ❤️",
                                         "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                        event.getChannel().sendMessageEmbeds(embed.build()).queue();
+                        event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                         return;
                     }
                 }
-                else if(message[1].equalsIgnoreCase("f")){
+                else if(event.getOption("direction").getAsString().equalsIgnoreCase("forward")){
                     try {
-                        Long amount = Long.parseLong(message[2]);
+                        Long amount = event.getOption("position").getAsLong();
                         audioPlayer.getPlayingTrack()
                                 .setPosition(audioPlayer.getPlayingTrack().getPosition() + (amount * 1000));
                         URI uri = URI.create(audioPlayer.getPlayingTrack().getInfo().uri);
@@ -121,7 +102,7 @@ public class Go extends ListenerAdapter {
                                         + event.getMember().getUser().getDiscriminator() + ")",
                                 null, event.getMember().getUser().getEffectiveAvatarUrl())
                                 .setThumbnail(url)
-                                .setTitle("🎵 " + audioPlayer.getPlayingTrack().getInfo().title)
+                                .setTitle("🎵 " + audioPlayer.getPlayingTrack().getInfo().title, audioPlayer.getPlayingTrack().getInfo().uri)
                                 .addField("Played",
                                         "🕐 " + String.format("%02d:%02d:%02d", lhours, lminutes, lseconds) + "/"
                                                 + String.format("%02d:%02d:%02d", hours, minutes, seconds),
@@ -129,16 +110,15 @@ public class Go extends ListenerAdapter {
                                 .setColor(15844367)
                                 .setFooter("Developed by Daly#3068 ❤️",
                                         "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                        event.getChannel().sendMessageEmbeds(embed.build()).queue();
+                        event.replyEmbeds(embed.build()).setEphemeral(false).queue();
                         return;
                     } catch (NumberFormatException e) {
                         EmbedBuilder embed = new EmbedBuilder();
                         embed.setAuthor("⛔ Please enter a valid number")
-                                .setTitle("👉 Use --go [b(backward) | f(forward)] [amount in seconds]")
                                 .setColor(15844367)
                                 .setFooter("Developed by Daly#3068 ❤️",
                                         "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                        event.getChannel().sendMessageEmbeds(embed.build()).queue();
+                        event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                         return;
                     }
                 }
@@ -148,9 +128,21 @@ public class Go extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly#3068 ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                event.getChannel().sendMessageEmbeds(embed.build()).queue();
+                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
         }
     }
 }
+
+
+// if (message.length != 3) {
+//     EmbedBuilder embed = new EmbedBuilder();
+//     embed.setAuthor("🔊 To use the go command properly")
+//             .setTitle("👉 Use -go [b(backward) | f(forward)] [amount in seconds]")
+//             .setColor(15844367)
+//             .setFooter("Developed by Daly#3068 ❤️",
+//                     "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+//     event.getChannel().sendMessageEmbeds(embed.build()).queue();
+//     return;
+// }

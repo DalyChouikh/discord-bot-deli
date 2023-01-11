@@ -4,32 +4,23 @@ import java.net.URI;
 
 import com.discord.LavaPlayer.GuildMusicManager;
 import com.discord.LavaPlayer.PlayerManager;
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class Remove extends ListenerAdapter {
 
-    public void onMessageReceived(MessageReceivedEvent event) {
-        if (event.getAuthor().isBot()) {
-            return;
-        }
-        if (!event.isFromGuild()) {
-            return;
-        }
-        String[] message = event.getMessage().getContentRaw().split(" ");
-        if (message[0].equalsIgnoreCase("-remove")) {
-            if (message.length != 2) {
+    public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
+        if (event.getName().equalsIgnoreCase("remove")) {
+            if (event.getOptionsByName("position").isEmpty()) {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 You need to provide the song number in the queue")
-                        .setTitle("👉  You can use -remove [Song position in queue]")
                         .setColor(15844367)
                         .setFooter("Developed by Daly#3068 ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                event.getChannel().sendMessageEmbeds(embed.build()).queue();
+                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
             if (!event.getMember().getVoiceState().inAudioChannel()) {
@@ -38,31 +29,30 @@ public class Remove extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly#3068 ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                event.getChannel().sendMessageEmbeds(embed.build()).queue();
+                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
             if (!event.getGuild().getAudioManager().isConnected()) {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 I need to join a Voice channel first")
-                        .setTitle("👉 You can use -play [song name/URL]")
                         .setColor(15844367)
                         .setFooter("Developed by Daly#3068 ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                event.getChannel().sendMessageEmbeds(embed.build()).queue();
+                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
             final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
-            final AudioPlayer audioPlayer = musicManager.audioPlayer;
             try {
-                int queue = Integer.parseInt(message[1]) - 1;
+                int queue = event.getOption("position").getAsInt() - 1;
                 if(queue == 0){
                     EmbedBuilder embed = new EmbedBuilder();
                     embed.setAuthor("⛔ To remove the current song")
-                        .setTitle("👉 You can use -skip")
+                        .setTitle("👉 use /skip")
                             .setColor(15844367)
                             .setFooter("Developed by Daly#3068 ❤️",
                                     "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                    event.getChannel().sendMessageEmbeds(embed.build()).queue();
+                    event.replyEmbeds(embed.build()).setEphemeral(true).queue();
+                    return;
                 }
                 int i = 1;
                 if (queue > musicManager.scheduler.queue.size()) {
@@ -71,7 +61,8 @@ public class Remove extends ListenerAdapter {
                             .setColor(15844367)
                             .setFooter("Developed by Daly#3068 ❤️",
                                     "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                    event.getChannel().sendMessageEmbeds(embed.build()).queue();
+                    event.replyEmbeds(embed.build()).setEphemeral(true).queue();
+                    return;
                 } else {
                     for (AudioTrack track : musicManager.scheduler.queue) {
                         if (i == queue) {
@@ -82,16 +73,17 @@ public class Remove extends ListenerAdapter {
                                 String url = "http://img.youtube.com/vi/" + videoID + "/0.jpg";
                                 EmbedBuilder embed = new EmbedBuilder();
                                 embed.setAuthor(
-                                        "🧹 Removed from queue (Requested by " + event.getMember().getUser().getName()
+                                        "🧹 Removed from queue by " + event.getMember().getUser().getName()
                                                 + "#"
-                                                + event.getMember().getUser().getDiscriminator() + ")",
+                                                + event.getMember().getUser().getDiscriminator(),
                                         null, event.getMember().getUser().getEffectiveAvatarUrl())
-                                        .setTitle(deletedTrack.getInfo().title)
+                                        .setTitle(deletedTrack.getInfo().title, deletedTrack.getInfo().uri)
                                         .setThumbnail(url)
                                         .setColor(15844367)
                                         .setFooter("Developed by Daly#3068 ❤️",
                                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                                event.getChannel().sendMessageEmbeds(embed.build()).queue();
+                                event.replyEmbeds(embed.build()).setEphemeral(false).queue();
+                                return;
                             }
                         }
                         i++;
@@ -100,11 +92,10 @@ public class Remove extends ListenerAdapter {
             } catch (NumberFormatException e) {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("⛔ Please enter a valid number")
-                        .setTitle("👉 Use --remove [Song position in queue]")
                         .setColor(15844367)
                         .setFooter("Developed by Daly#3068 ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                event.getChannel().sendMessageEmbeds(embed.build()).queue();
+                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
 

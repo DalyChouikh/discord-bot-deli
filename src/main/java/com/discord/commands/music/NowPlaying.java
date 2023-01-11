@@ -5,23 +5,15 @@ import java.net.URI;
 import com.discord.LavaPlayer.GuildMusicManager;
 import com.discord.LavaPlayer.PlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class NowPlaying extends ListenerAdapter {
 
-    public void onMessageReceived(MessageReceivedEvent event) {
-        if (event.getAuthor().isBot()) {
-            return;
-        }
-        if (!event.isFromGuild()) {
-            return;
-        }
-        String[] message = event.getMessage().getContentRaw().split(" ");
-        if (message[0].equalsIgnoreCase("-now")) {
+    public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
+        if (event.getName().equalsIgnoreCase("now")) {
             final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
             final AudioPlayer audioPlayer = musicManager.audioPlayer;
             if (audioPlayer.getPlayingTrack() == null) {
@@ -30,7 +22,7 @@ public class NowPlaying extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly#3068 ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                event.getChannel().sendMessageEmbeds(embed.build()).queue();
+                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             } else {
                 URI uri = URI.create(audioPlayer.getPlayingTrack().getInfo().uri);
@@ -60,9 +52,8 @@ public class NowPlaying extends ListenerAdapter {
                 } else {
                     now = "▶️ " + musicManager.audioPlayer.getPlayingTrack().getInfo().title;
                 }
-                embed.setTitle("🎵 " + audioPlayer.getPlayingTrack().getInfo().title)
-                        .setAuthor("📀 Now Playing ", null, event.getMember().getUser().getEffectiveAvatarUrl())
-                        .setDescription(audioPlayer.getPlayingTrack().getInfo().uri)
+                embed.setTitle("🎵 " + audioPlayer.getPlayingTrack().getInfo().title, audioPlayer.getPlayingTrack().getInfo().uri)
+                        .setAuthor("📀 Now Playing ")
                         .setThumbnail(url)
                         .setFooter("Developed by Daly#3068 ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png")
@@ -70,7 +61,7 @@ public class NowPlaying extends ListenerAdapter {
                         .addField("Now", now, true)
                         .addField("Next", next, true)
                         .setColor(15844367);
-                event.getChannel().sendMessageEmbeds(embed.build()).complete();
+                event.replyEmbeds(embed.build()).setEphemeral(false).queue();
             }
         }
     }

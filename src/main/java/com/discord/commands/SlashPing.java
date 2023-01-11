@@ -20,7 +20,7 @@ public class SlashPing extends ListenerAdapter {
         if(event.getName().equalsIgnoreCase("ping")){
             EmbedBuilder embed = new EmbedBuilder();
             embed.setAuthor("Ping", null, "https://cdn.discordapp.com/avatars/917074546933260399/0a8290bb752d9f70e2b1af21e017b853.webp?size=80")
-                 .addField(":signal_strength: Message Latency", Long.toString(event.getJDA().getGatewayPing()) + " ms", true)
+                 .addField(":signal_strength: Message Latency", Long.toString(event.getJDA().getGatewayPing()), true)
                  .setColor(15844367)
                  .setFooter("Developed by Daly#3068 ❤️",
                             "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
