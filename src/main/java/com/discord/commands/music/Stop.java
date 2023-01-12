@@ -34,8 +34,8 @@ public class Stop extends ListenerAdapter {
                 event.getGuild().getAudioManager().closeAudioConnection();
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor(
-                        "⏹️ Stopped (Requested by " + event.getMember().getUser().getName() + "#"
-                                + event.getMember().getUser().getDiscriminator() + ")",
+                        "⏹️ Stopped by " + event.getMember().getUser().getName() + "#"
+                                + event.getMember().getUser().getDiscriminator(),
                         null, event.getMember().getUser().getEffectiveAvatarUrl())
                         .setTitle("🧹 Queue cleared")
                         .setColor(15844367)
