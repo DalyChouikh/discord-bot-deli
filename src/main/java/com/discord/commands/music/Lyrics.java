@@ -5,7 +5,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-
+import java.util.concurrent.TimeUnit;
 
 import com.discord.LavaPlayer.GuildMusicManager;
 import com.discord.LavaPlayer.PlayerManager;
@@ -121,20 +121,23 @@ public class Lyrics extends ListenerAdapter {
                                 try {
                                     embed.setDescription(lyric);
                                 } catch (IllegalArgumentException e) {
+                                        e.printStackTrace();
                                     try {
                                         embed.setDescription(lyric.substring(0, 4095))
                                                 .addField("", lyric.substring(4095, lyric.length()),
                                                         false);
                                     } catch (IllegalArgumentException ex) {
+                                        ex.printStackTrace();
                                         embed.setDescription(lyric.substring(0, 4095))
                                                 .addField("", lyric.substring(4095, 5119),
                                                         false)
                                                 .addField("", lyric.substring(5119, 6000), false);
                                     }
                                 }
-                                event.replyEmbeds(embed.build()).setEphemeral(false).queue();
+                                event.replyEmbeds(embed.build()).setEphemeral(false).completeAfter(1, TimeUnit.SECONDS);
                                 break;
                             } catch (NullPointerException e) {
+                                e.printStackTrace();
                                 continue;
                             }
                         }
