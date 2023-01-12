@@ -6,7 +6,10 @@ import com.discord.LavaPlayer.PlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
+import kotlin.Pair;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -51,6 +54,8 @@ public class Queue extends ListenerAdapter {
                 Long playMinutes = playTime / 1000 / 60 % 60;
                 Long playSeconds = playTime / 1000 % 60;
                 int pos = 2;
+                Pair<User, TextChannel> pair1 = (Pair<User, TextChannel>) audioPlayer.getPlayingTrack().getUserData();
+                User user1 = pair1.getFirst();
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("📀 Queue Requested by " + event.getMember().getUser().getName() + "#"
                         + event.getMember().getUser().getDiscriminator(),
@@ -58,15 +63,19 @@ public class Queue extends ListenerAdapter {
                         .addField("Song #1",
                                 audioPlayer.getPlayingTrack().getInfo().title + " **Played :** `"
                                         + String.format("%02d:%02d:%02d", playHours, playMinutes, playSeconds) + "/"
-                                        + String.format("%02d:%02d:%02d", hours, minutes, seconds) + "`",
+                                        + String.format("%02d:%02d:%02d", hours, minutes, seconds) + "`"
+                                        + "** Requested by : ** `" + user1.getName() + "#" + user1.getDiscriminator() + "`",
                                 false)
                         .setColor(15844367)
                         .setFooter("Developed by Daly#3068 ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
                 for (AudioTrack track : musicManager.scheduler.queue) {
                     Long apprTime = track.getDuration();
+                    Pair<User, TextChannel> pair = (Pair<User, TextChannel>) track.getUserData();
+                    User user = pair.getFirst();
                     embed.addField("Song #" + pos,
-                            track.getInfo().title + "** Length :** `" + String.format("%02d:%02d:%02d", apprTime / 1000 / 60 / 60, apprTime / 1000 / 60 % 60, apprTime / 1000 % 60) + "`",
+                            track.getInfo().title + "** Length :** `" + String.format("%02d:%02d:%02d", apprTime / 1000 / 60 / 60, apprTime / 1000 / 60 % 60, apprTime / 1000 % 60) + "`"
+                                    + "** Requested by : ** `" + user.getName() + "#" + user.getDiscriminator() + "`",
                             false);
                     pos++;
                 }

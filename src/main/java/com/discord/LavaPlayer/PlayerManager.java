@@ -13,8 +13,10 @@ import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
+import kotlin.Pair;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class PlayerManager {
@@ -38,7 +40,7 @@ public class PlayerManager {
         });
     }
 
-    public void loadAndPlay(TextChannel textChannel, String trackUrl) {
+    public void loadAndPlay(TextChannel textChannel, String trackUrl, User user) {
         final GuildMusicManager musicManager = this.getMusicManager(textChannel.getGuild());
         this.audioPlayerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
             @Override
@@ -78,6 +80,7 @@ public class PlayerManager {
                     }
                     embed.setTitle("🎵 " + audioTrack.getInfo().title,audioTrack.getInfo().uri)
                             .setAuthor("📀 Adding to queue ")
+                            .setDescription("** Requested by : ** `" + user.getName() + "#" + user.getDiscriminator() + "`")
                             .setThumbnail(url)
                             .setFooter("Developed by Daly#3068 ❤️", "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png")
                             .addField("Length", "🕐 " + String.format("%02d:%02d:%02d", hours, minutes, seconds), true)
@@ -99,14 +102,15 @@ public class PlayerManager {
                         track.setUserData((TextChannel) textChannel);
                     }
                     EmbedBuilder embed = new EmbedBuilder();
-                    embed.setAuthor("✅ Playlist added to Queue (" + Integer.toString(tracks.size()) + " songs)")
+                    embed.setAuthor("✅ Playlist (" + Integer.toString(tracks.size()) + " songs) added")
+                            .setDescription("** Requested by : ** `" + user.getName() + "#" + user.getDiscriminator() + "`")
                             .addField("Length", "🕐 " + String.format("%02d:%02d:%02d", length / 1000 / 60 / 60, length / 1000 / 60 % 60, length / 1000 % 60), true)
                             .setColor(15844367)
                             .setFooter("Developed by Daly#3068 ❤️", "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
                     textChannel.sendMessageEmbeds(embed.build()).queue();
                 } else if (!tracks.isEmpty()) {
                     musicManager.scheduler.queue(tracks.get(0));
-                    tracks.get(0).setUserData((TextChannel) textChannel);
+                    tracks.get(0).setUserData(new Pair<User,TextChannel>(user,(TextChannel) textChannel));
                     URI uri = URI.create(tracks.get(0).getInfo().uri);
                     String videoID = uri.getQuery().split("=")[1];
                     String url = "http://img.youtube.com/vi/" + videoID + "/0.jpg";
@@ -139,7 +143,8 @@ public class PlayerManager {
                         now = "▶️ " + musicManager.audioPlayer.getPlayingTrack().getInfo().title;
                     }
                     embed.setTitle("🎵 " + tracks.get(0).getInfo().title, tracks.get(0).getInfo().uri)
-                            .setAuthor("📀 Adding to queue ")
+                            .setAuthor("📀 Adding to queue")
+                            .setDescription("** Requested by : ** `" + user.getName() + "#" + user.getDiscriminator() + "`")
                             .setThumbnail(url)
                             .setFooter("Developed by Daly#3068 ❤️", "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png")
                             .addField("Length", "🕐 " + String.format("%02d:%02d:%02d", hours, minutes, seconds), true)

@@ -37,7 +37,7 @@ public class SlashHelp extends ListenerAdapter {
                     .addField("❗ Ping : ",
                             "`/ping` : Check bot's ping",
                             false)
-                    .addField("❓ Need help : ",
+                    .addField("❓ Deja Vu : ",
                             "`/help` : Display this message",
                             false)
                     .setColor(15844367)

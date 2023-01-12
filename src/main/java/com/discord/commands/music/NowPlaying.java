@@ -6,7 +6,10 @@ import com.discord.LavaPlayer.GuildMusicManager;
 import com.discord.LavaPlayer.PlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 
+import kotlin.Pair;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -52,8 +55,11 @@ public class NowPlaying extends ListenerAdapter {
                 } else {
                     now = "▶️ " + musicManager.audioPlayer.getPlayingTrack().getInfo().title;
                 }
+                Pair<User, TextChannel> pair = (Pair<User, TextChannel>) audioPlayer.getPlayingTrack().getUserData();
+                User user = pair.getFirst();
                 embed.setTitle("🎵 " + audioPlayer.getPlayingTrack().getInfo().title, audioPlayer.getPlayingTrack().getInfo().uri)
                         .setAuthor("📀 Now Playing ")
+                        .setDescription("** Requested by : ** `" + user.getName() + "#" + user.getDiscriminator() + "`")
                         .setThumbnail(url)
                         .setFooter("Developed by Daly#3068 ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png")

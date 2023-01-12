@@ -53,9 +53,8 @@ public class Lyrics extends ListenerAdapter {
                 } else {
                     event.deferReply(false).queue();
                     String title = audioPlayer.getPlayingTrack().getInfo().title;
-                    title = title.replaceAll("(?i)Official", "").replaceAll("(?i)Music", "")
-                            .replaceAll("Stream", "").replaceAll("Video", "")
-                            .replaceAll("\\([^\\(]*\\)|\\[[^\\[]*\\]", "")
+                    title = title.split("\\(|\\[|\\|")[0]
+                            .replaceAll("\\([^\\(]*\\)|\\[[^\\[]*\\]", "").replaceAll("\\|", "")
                             .replaceAll("&", " ").split("(?<!\\w)ft(?!\\w)")[0]
                             .split("(?<!\\w)feat(?!\\w)")[0].replaceAll(" ",
                             "%20");
@@ -111,7 +110,7 @@ public class Lyrics extends ListenerAdapter {
                                                         + event.getMember()
                                                         .getUser()
                                                         .getDiscriminator()
-                                                        ,
+                                                ,
                                                 null,
                                                 event.getMember().getUser()
                                                         .getEffectiveAvatarUrl())

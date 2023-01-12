@@ -7,7 +7,10 @@ import com.discord.LavaPlayer.PlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
+import kotlin.Pair;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -96,8 +99,11 @@ public class Seek extends ListenerAdapter {
                             String url = "http://img.youtube.com/vi/" + videoID + "/0.jpg";
                             Long duration = needTrack.getDuration();
                             EmbedBuilder embed = new EmbedBuilder();
+                            Pair<User, TextChannel> pair = (Pair<User, TextChannel>) track.getUserData();
+                            User user = pair.getFirst();
                             embed.setTitle(
                                     "🎵 " + track.getInfo().title , track.getInfo().uri)
+                                    .setDescription("** Requested by : ** `" + user.getName() + "#" + user.getDiscriminator() + "`")
                                     .setThumbnail(url)
                                     .addField("Now ", now, true)
                                     .addField("Next", next, true)

@@ -6,7 +6,10 @@ import com.discord.LavaPlayer.GuildMusicManager;
 import com.discord.LavaPlayer.PlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 
+import kotlin.Pair;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -95,14 +98,17 @@ public class Go extends ListenerAdapter {
                         Long lhours = l / 1000 / 60 / 60;
                         Long lminutes = l / 1000 / 60 % 60;
                         Long lseconds = l / 1000 % 60;
+                        Pair<User, TextChannel> pair = (Pair<User, TextChannel>) audioPlayer.getPlayingTrack().getUserData();
+                        User user = pair.getFirst();
                         EmbedBuilder embed = new EmbedBuilder();
                         embed.setAuthor(
-                                "▶️ Went forward " + amount + " seconds (Requested by " + event.getMember().getUser().getName()
+                                "▶️ Went forward " + amount + " seconds by " + event.getMember().getUser().getName()
                                         + "#"
-                                        + event.getMember().getUser().getDiscriminator() + ")",
+                                        + event.getMember().getUser().getDiscriminator(),
                                 null, event.getMember().getUser().getEffectiveAvatarUrl())
                                 .setThumbnail(url)
                                 .setTitle("🎵 " + audioPlayer.getPlayingTrack().getInfo().title, audioPlayer.getPlayingTrack().getInfo().uri)
+                                .setDescription("** Requested by : ** `" + user.getName() + "#" + user.getDiscriminator() + "`")
                                 .addField("Played",
                                         "🕐 " + String.format("%02d:%02d:%02d", lhours, lminutes, lseconds) + "/"
                                                 + String.format("%02d:%02d:%02d", hours, minutes, seconds),

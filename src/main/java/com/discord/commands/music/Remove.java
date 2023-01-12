@@ -6,7 +6,10 @@ import com.discord.LavaPlayer.GuildMusicManager;
 import com.discord.LavaPlayer.PlayerManager;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
+import kotlin.Pair;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -71,6 +74,8 @@ public class Remove extends ListenerAdapter {
                                 URI uri = URI.create(track.getInfo().uri);
                                 String videoID = uri.getQuery().split("=")[1];
                                 String url = "http://img.youtube.com/vi/" + videoID + "/0.jpg";
+                                Pair<User, TextChannel> pair = (Pair<User, TextChannel>) deletedTrack.getUserData();
+                                User user = pair.getFirst();
                                 EmbedBuilder embed = new EmbedBuilder();
                                 embed.setAuthor(
                                         "🧹 Removed from queue by " + event.getMember().getUser().getName()
@@ -78,6 +83,7 @@ public class Remove extends ListenerAdapter {
                                                 + event.getMember().getUser().getDiscriminator(),
                                         null, event.getMember().getUser().getEffectiveAvatarUrl())
                                         .setTitle(deletedTrack.getInfo().title, deletedTrack.getInfo().uri)
+                                        .setDescription("** Requested by : ** `" + user.getName() + "#" + user.getDiscriminator() + "`")
                                         .setThumbnail(url)
                                         .setColor(15844367)
                                         .setFooter("Developed by Daly#3068 ❤️",

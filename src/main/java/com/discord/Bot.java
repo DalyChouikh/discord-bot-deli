@@ -5,11 +5,13 @@ import java.util.Arrays;
 import com.discord.commands.SlashHelp;
 import com.discord.commands.SlashPing;
 import com.discord.commands.music.*;
+import com.discord.commands.music.contextCmds.*;
 import com.discord.events.AutoCompleteGo;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -46,6 +48,10 @@ public class Bot {
                 .addEventListeners(new ContextPlay())
                 .addEventListeners(new Clear())
                 .addEventListeners(new Shuffle())
+                .addEventListeners(new ContextStop())
+                .addEventListeners(new ContextSkip())
+                .addEventListeners(new ContextPause())
+                .addEventListeners(new ContextResume())
                 .build();
         bot.getPresence()
                 .setActivity(Activity.listening("/help !"));
@@ -75,7 +81,11 @@ public class Bot {
                                 .setGuildOnly(true),
                         Commands.message("Play this song").setGuildOnly(false),
                         Commands.slash("clear", "Clear the queue").setGuildOnly(true),
-                        Commands.slash("shuffle", "Shuffle queue").setGuildOnly(true)
+                        Commands.slash("shuffle", "Shuffle queue").setGuildOnly(true),
+                        Commands.context(Command.Type.USER, "Stop song").setGuildOnly(true),
+                        Commands.context(Command.Type.USER, "Skip song").setGuildOnly(true),
+                        Commands.context(Command.Type.USER, "Pause song").setGuildOnly(true),
+                        Commands.context(Command.Type.USER, "Resume song").setGuildOnly(true)
                 )
                 .queue();
     }

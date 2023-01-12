@@ -1,21 +1,21 @@
-package com.discord.commands.music;
-
-import java.net.URI;
+package com.discord.commands.music.contextCmds;
 
 import com.discord.LavaPlayer.GuildMusicManager;
 import com.discord.LavaPlayer.PlayerManager;
-
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import kotlin.Pair;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.command.UserContextInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-public class Resume extends ListenerAdapter {
-    public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        if (event.getName().equalsIgnoreCase("resume")) {
+import java.net.URI;
+
+public class ContextResume extends ListenerAdapter {
+    public void onUserContextInteraction(UserContextInteractionEvent event) {
+        if (event.getName().equalsIgnoreCase("Resume song")) {
             AudioPlayer audioPlayer = PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.player;
             if (!event.getMember().getVoiceState().inAudioChannel()) {
                 EmbedBuilder embed = new EmbedBuilder();
