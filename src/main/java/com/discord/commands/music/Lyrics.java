@@ -51,7 +51,6 @@ public class Lyrics extends ListenerAdapter {
                     event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                     return;
                 } else {
-                    event.deferReply(false).queue();
                     String title = audioPlayer.getPlayingTrack().getInfo().title;
                     title = title.split("\\(|\\[|\\|")[0]
                             .replaceAll("\\([^\\(]*\\)|\\[[^\\[]*\\]", "").replaceAll("\\|", "")
@@ -133,7 +132,7 @@ public class Lyrics extends ListenerAdapter {
                                                 .addField("", lyric.substring(5119, 6000), false);
                                     }
                                 }
-                                event.getHook().sendMessageEmbeds(embed.build()).queue();
+                                event.replyEmbeds(embed.build()).setEphemeral(false).queue();
                                 break;
                             } catch (NullPointerException e) {
                                 continue;
