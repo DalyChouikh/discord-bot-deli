@@ -140,7 +140,6 @@ public class PlayerManager {
                     }
                     embed.setTitle("🎵 " + tracks.get(0).getInfo().title, tracks.get(0).getInfo().uri)
                             .setAuthor("📀 Adding to queue ")
-                            .setDescription(tracks.get(0).getInfo().uri)
                             .setThumbnail(url)
                             .setFooter("Developed by Daly#3068 ❤️", "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png")
                             .addField("Length", "🕐 " + String.format("%02d:%02d:%02d", hours, minutes, seconds), true)
