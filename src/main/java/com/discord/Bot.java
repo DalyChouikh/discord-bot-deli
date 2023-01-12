@@ -26,7 +26,7 @@ public class Bot {
             GatewayIntent.MESSAGE_CONTENT};
 
     public static void main(String[] args) throws Exception {
-        String token = System.getenv("DELIFY_TOKEN");
+        String token = System.getenv("TEST_TOKEN");
         JDA bot = JDABuilder.create(Arrays.asList(INTENTS))
                 .enableCache(CacheFlag.VOICE_STATE, CacheFlag.EMOJI)
                 .setToken(token)
