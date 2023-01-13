@@ -71,7 +71,7 @@ public class Lyrics extends ListenerAdapter {
                                                                 .send(requestId, HttpResponse.BodyHandlers.ofString());
                                                 ObjectMapper mapper = new ObjectMapper();
                                                 JsonNode song = mapper.readTree(responseId.body());
-                
+                                                System.out.println(song.toString());
                                                 if (song.withArray("hits").isEmpty()) {
                                                         EmbedBuilder embed = new EmbedBuilder();
                                                         embed.setAuthor("❌ No lyrics are found")
