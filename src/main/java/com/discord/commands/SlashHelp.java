@@ -19,7 +19,7 @@ public class SlashHelp extends ListenerAdapter {
                     .addField("🔊 Get back to listening?:", "`/resume` : resume song", false)
                     .addField("👎 Don't like the song?:", "`/skip` : Skip a song", false)
                     .addField("😊 Get some rest:", "`/stop` : Stop music and clear the queue", false)
-                    .addField("👄 Some Karaoke?:", "`-lyrics` : Display the current song lyrics", false)
+                    .addField("👄 Some Karaoke?:", "`/lyrics` : Display the current song lyrics", false)
                     .addField("🧹 Don't want to listen to upcoming song?:",
                             "`/remove [Song position]` : Removes a song from the queue", false)
                     .addField(":face_with_peeking_eye: See what ahead:", "`/queue` : Display the queue", false)
