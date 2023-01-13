@@ -81,7 +81,6 @@ public class Lyrics extends ListenerAdapter {
                                                         event.replyEmbeds(embed.build()).setEphemeral(false).queue();
                                                         return;
                                                 }
-                                                event.deferReply(false).submit();
                                                 for (JsonNode hit : song.withArray("hits")) {
                                                         try {
                                                                 HttpRequest requestLyrics = HttpRequest.newBuilder()
@@ -158,8 +157,7 @@ public class Lyrics extends ListenerAdapter {
                                                                                 }
                                                                         }
                                         
-                                                                        event.getHook().sendMessageEmbeds(embed.build())
-                                                                                        .completeAfter(1500, TimeUnit.MILLISECONDS);
+                                                                        event.replyEmbeds(embed.build()).setEphemeral(false).queue();
                                                                         return;
                                                                 } else {
                                                                         continue;
