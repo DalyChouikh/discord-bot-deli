@@ -156,8 +156,8 @@ public class Lyrics extends ListenerAdapter {
                                                                                                                         false);
                                                                                 }
                                                                         }
-                                        
-                                                                        event.replyEmbeds(embed.build()).setEphemeral(false).queue();
+                                                                        event.reply("**Lyrics found **").setEphemeral(true).queue();
+                                                                        event.getChannel().sendMessageEmbeds(embed.build()).queue();
                                                                         return;
                                                                 } else {
                                                                         continue;
