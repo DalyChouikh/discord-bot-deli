@@ -66,7 +66,6 @@ public class Bot {
                         Commands.slash("now", "Display the current song infos").setGuildOnly(true),
                         Commands.slash("pause", "Pause song").setGuildOnly(true),
                         Commands.slash("resume", "Resume song").setGuildOnly(true),
-                        Commands.slash("lyrics", "Request song lyrics").setGuildOnly(true),
                         Commands.slash("skip", "Skip song").setGuildOnly(true),
                         Commands.slash("queue", "Show the first 25 songs in the queue").setGuildOnly(true),
                         Commands.slash("remove", "Remove a song in the queue")
