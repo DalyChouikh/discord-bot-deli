@@ -103,7 +103,6 @@ public class Lyrics extends ListenerAdapter {
                                                                                 .get("lyrics")
                                                                                 .get("body")
                                                                                 .get("html");
-                                                                if (!html.asText().contains("<h3>")) {
                                                                         String lyric = html.asText().replaceAll("<.*?>",
                                                                                         "");
                                                                         URI uri = URI.create(
@@ -157,9 +156,6 @@ public class Lyrics extends ListenerAdapter {
                                                                         }
                                                                         event.replyEmbeds(embed.build()).setEphemeral(false).queue();
                                                                         break;
-                                                                } else {
-                                                                        continue;
-                                                                }
                                                         } catch (NullPointerException e) {
                                                                 continue;
                                                         }
