@@ -71,7 +71,6 @@ public class Lyrics extends ListenerAdapter {
                                                                 .send(requestId, HttpResponse.BodyHandlers.ofString());
                                                 ObjectMapper mapper = new ObjectMapper();
                                                 JsonNode song = mapper.readTree(responseId.body());
-                                                System.out.println(song.toString());
                                                 if (song.withArray("hits").isEmpty()) {
                                                         EmbedBuilder embed = new EmbedBuilder();
                                                         embed.setAuthor("❌ No lyrics are found")
@@ -82,6 +81,7 @@ public class Lyrics extends ListenerAdapter {
                                                         return;
                                                 }
                                                 for (JsonNode hit : song.withArray("hits")) {
+                                                        System.out.println(hit);
                                                         try {
                                                                 HttpRequest requestLyrics = HttpRequest.newBuilder()
                                                                                 .uri(URI.create("https://genius-song-lyrics1.p.rapidapi.com/song/lyrics/?id="
@@ -98,6 +98,7 @@ public class Lyrics extends ListenerAdapter {
                                                                                 .newHttpClient().send(requestLyrics,
                                                                                                 HttpResponse.BodyHandlers
                                                                                                                 .ofString());
+                                                                System.out.println(responseLyrics.body());
                                                                 JsonNode lyrics = mapper
                                                                                 .readTree(responseLyrics.body());
                                                                 JsonNode html = lyrics.get("lyrics")
