@@ -21,6 +21,7 @@ public class Lyrics extends ListenerAdapter {
 
         public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
                 if (event.getName().equalsIgnoreCase("lyrics")) {
+                        System.out.println("Here");
                         if (!event.getMember().getVoiceState().inAudioChannel()) {
                                 EmbedBuilder embed = new EmbedBuilder();
                                 embed.setAuthor("🔊 You need to join a Voice channel")
@@ -70,6 +71,7 @@ public class Lyrics extends ListenerAdapter {
                                                                 .send(requestId, HttpResponse.BodyHandlers.ofString());
                                                 ObjectMapper mapper = new ObjectMapper();
                                                 JsonNode song = mapper.readTree(responseId.body());
+                                                System.out.println("Here");
                                                 if (song.withArray("hits").isEmpty()) {
                                                         EmbedBuilder embed = new EmbedBuilder();
                                                         embed.setAuthor("❌ No lyrics are found")
@@ -80,6 +82,7 @@ public class Lyrics extends ListenerAdapter {
                                                         return;
                                                 }
                                                 event.deferReply(false).queue();
+                                                System.out.println("Here");
                                                 for (JsonNode hit : song.withArray("hits")) {
                                                         try {
                                                                 HttpRequest requestLyrics = HttpRequest.newBuilder()
@@ -155,6 +158,7 @@ public class Lyrics extends ListenerAdapter {
                                                                                                                         false);
                                                                                 }
                                                                         }
+                                                                        System.out.println("Here");
                                                                         event.getHook().sendMessageEmbeds(embed.build())
                                                                                         .queue();
                                                                         return;
