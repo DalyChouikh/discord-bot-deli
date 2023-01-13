@@ -81,7 +81,6 @@ public class Lyrics extends ListenerAdapter {
                                                         return;
                                                 }
                                                 for (JsonNode hit : song.withArray("hits")) {
-                                                        System.out.println(hit);
                                                         try {
                                                                 HttpRequest requestLyrics = HttpRequest.newBuilder()
                                                                                 .uri(URI.create("https://genius-song-lyrics1.p.rapidapi.com/song/lyrics/?id="
@@ -98,15 +97,12 @@ public class Lyrics extends ListenerAdapter {
                                                                                 .newHttpClient().send(requestLyrics,
                                                                                                 HttpResponse.BodyHandlers
                                                                                                                 .ofString());
-                                                                System.out.println(responseLyrics.body());
                                                                 JsonNode lyrics = mapper
                                                                                 .readTree(responseLyrics.body());
                                                                 JsonNode html = lyrics.get("lyrics")
                                                                                 .get("lyrics")
                                                                                 .get("body")
                                                                                 .get("html");
-                                                                System.out.println("Here");
-                                                                System.out.println(html.asText());
                                                                 if (!html.asText().contains("<h3>")) {
                                                                         String lyric = html.asText().replaceAll("<.*?>",
                                                                                         "");
@@ -159,9 +155,8 @@ public class Lyrics extends ListenerAdapter {
                                                                                                                         false);
                                                                                 }
                                                                         }
-                                                                        event.getChannel().sendMessageEmbeds(embed.build()).queue();
-                                                                        event.reply("**Lyrics found **").setEphemeral(true).queue();
-                                                                        return;
+                                                                        event.replyEmbeds(embed.build()).setEphemeral(false).queue();
+                                                                        break;
                                                                 } else {
                                                                         continue;
                                                                 }
