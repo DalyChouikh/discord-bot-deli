@@ -52,8 +52,6 @@ public class Play extends ListenerAdapter {
             } else{
                 AudioManager audioManager = event.getGuild().getAudioManager();
                 audioManager.openAudioConnection((AudioChannelUnion) connectedChannel);
-                final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
-                scheduleLeave(audioManager, musicManager);
                 String song = event.getOption("song").getAsString();
                 if (!isUrl(song)) {
                     song = "ytsearch:" + song + " audio";
@@ -74,19 +72,5 @@ public class Play extends ListenerAdapter {
             return false;
         }
     }
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-    public void scheduleLeave(AudioManager audioManager, GuildMusicManager musicManager) {
-        scheduler.scheduleAtFixedRate(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("checking");
-                if (audioManager.getConnectedChannel().getMembers().size() == 1 || musicManager.audioPlayer.getPlayingTrack() == null && musicManager.scheduler.queue.isEmpty()) {
-                    audioManager.closeAudioConnection();
-                    System.out.println("closed");
-                    scheduler.shutdown();
-                }
-            }
-        }, 20, 20, TimeUnit.SECONDS);
-    }
 }

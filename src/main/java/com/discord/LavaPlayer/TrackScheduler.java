@@ -1,5 +1,6 @@
 package com.discord.LavaPlayer;
 
+import com.discord.events.AutoLeave;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
@@ -8,6 +9,7 @@ import kotlin.Pair;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.managers.AudioManager;
 
 import java.net.URI;
 import java.util.concurrent.*;
@@ -36,7 +38,7 @@ public class TrackScheduler extends AudioEventAdapter {
         if (endReason.mayStartNext) {
             nextTrack();
         }
-        Pair<User,TextChannel> pair = (Pair<User, TextChannel>) track.getUserData();
+        Pair<User, TextChannel> pair = (Pair<User, TextChannel>) track.getUserData();
         TextChannel textChannel = pair.getSecond();
         User user = pair.getFirst();
         final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(textChannel.getGuild());
@@ -76,7 +78,12 @@ public class TrackScheduler extends AudioEventAdapter {
 
             textChannel.sendMessageEmbeds(embed.build()).queue();
         }
+        AudioManager audioManager = textChannel.getGuild().getAudioManager();
+        AutoLeave autoLeave = new AutoLeave();
+        autoLeave.scheduleLeave(audioManager, musicManager);
     }
+
+
 }
 
 
