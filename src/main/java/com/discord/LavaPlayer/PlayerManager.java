@@ -102,7 +102,7 @@ public class PlayerManager {
                         track.setUserData((TextChannel) textChannel);
                     }
                     EmbedBuilder embed = new EmbedBuilder();
-                    embed.setAuthor("✅ Playlist (" + Integer.toString(tracks.size()) + " songs) added")
+                    embed.setAuthor("✅ Playlist (" + Integer.toString(tracks.size()) + " songs) added",trackUrl)
                             .setDescription("** Requested by : ** `" + user.getName() + "#" + user.getDiscriminator() + "`")
                             .addField("Length", "🕐 " + String.format("%02d:%02d:%02d", length / 1000 / 60 / 60, length / 1000 / 60 % 60, length / 1000 % 60), true)
                             .setColor(15844367)

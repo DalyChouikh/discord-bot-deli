@@ -61,6 +61,7 @@ public class Lyrics extends ListenerAdapter {
                             .split("(?<!\\w)feat(?!\\w)")[0].replaceAll(" ",
                             "%20");
                     try {
+                        event.deferReply(false).delay(2, TimeUnit.SECONDS).queue();
                         HttpRequest requestId = HttpRequest.newBuilder()
                                 .uri(URI.create("https://genius-song-lyrics1.p.rapidapi.com/search/?q="
                                         + title))
@@ -79,7 +80,7 @@ public class Lyrics extends ListenerAdapter {
                                     .setColor(15844367)
                                     .setFooter("Developed by Daly#3068 ❤️",
                                             "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                            event.replyEmbeds(embed.build()).setEphemeral(false).queue();
+                            event.getHook().sendMessageEmbeds(embed.build()).delay(2, TimeUnit.SECONDS).queue();
                             return;
                         }
                         for (JsonNode songId : songsId) {
@@ -148,7 +149,7 @@ public class Lyrics extends ListenerAdapter {
                                                         false);
                                     }
                                 }
-                                event.replyEmbeds(embed.build()).setEphemeral(false).queue();
+                                event.getHook().sendMessageEmbeds(embed.build()).delay(2, TimeUnit.SECONDS).queue();
                                 break;
                             }
                             if(songId.equals(songsId.get(songsId.size()-1))){
@@ -157,7 +158,7 @@ public class Lyrics extends ListenerAdapter {
                                         .setColor(15844367)
                                         .setFooter("Developed by Daly#3068 ❤️",
                                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                                event.replyEmbeds(embed.build()).setEphemeral(false).queue();
+                                event.getHook().sendMessageEmbeds(embed.build()).delay(2, TimeUnit.SECONDS).queue();
                                 return;
                             }
                             else {
@@ -172,7 +173,7 @@ public class Lyrics extends ListenerAdapter {
                                 .setColor(15844367)
                                 .setFooter("Developed by Daly#3068 ❤️",
                                         "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                        event.replyEmbeds(embed.build()).setEphemeral(false).queue();
+                        event.getHook().sendMessageEmbeds(embed.build()).delay(2, TimeUnit.SECONDS).queue();
                         return;
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -181,7 +182,7 @@ public class Lyrics extends ListenerAdapter {
                                 .setColor(15844367)
                                 .setFooter("Developed by Daly#3068 ❤️",
                                         "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                        event.replyEmbeds(embed.build()).setEphemeral(false).queue();
+                        event.getHook().sendMessageEmbeds(embed.build()).delay(2, TimeUnit.SECONDS).queue();
                         return;
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -190,7 +191,7 @@ public class Lyrics extends ListenerAdapter {
                                 .setColor(15844367)
                                 .setFooter("Developed by Daly#3068 ❤️",
                                         "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-                        event.replyEmbeds(embed.build()).setEphemeral(false).queue();
+                        event.getHook().sendMessageEmbeds(embed.build()).delay(2, TimeUnit.SECONDS).queue();
                         return;
                     }
                 }
