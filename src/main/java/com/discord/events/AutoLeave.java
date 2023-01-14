@@ -15,12 +15,10 @@ public class AutoLeave {
         scheduler.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
-                System.out.println("checking");
                 if (audioManager.getConnectedChannel().getMembers().size() == 1 || musicManager.audioPlayer.getPlayingTrack() == null && musicManager.scheduler.queue.isEmpty()) {
                     musicManager.audioPlayer.stopTrack();
                     musicManager.scheduler.queue.clear();
                     audioManager.closeAudioConnection();
-                    System.out.println("closed");
                     scheduler.shutdown();
                 }
             }
