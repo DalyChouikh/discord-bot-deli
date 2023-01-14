@@ -1,6 +1,7 @@
 package com.discord.commands.music;
 
 
+import com.discord.LavaPlayer.GuildMusicManager;
 import com.discord.LavaPlayer.PlayerManager;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -11,6 +12,10 @@ import net.dv8tion.jda.api.entities.channel.unions.AudioChannelUnion;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.managers.AudioManager;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Play extends ListenerAdapter {
     @Override
@@ -47,6 +52,8 @@ public class Play extends ListenerAdapter {
             } else{
                 AudioManager audioManager = event.getGuild().getAudioManager();
                 audioManager.openAudioConnection((AudioChannelUnion) connectedChannel);
+                final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
+                scheduleLeave(audioManager, musicManager);
                 String song = event.getOption("song").getAsString();
                 if (!isUrl(song)) {
                     song = "ytsearch:" + song + " audio";
@@ -66,5 +73,20 @@ public class Play extends ListenerAdapter {
         else{
             return false;
         }
+    }
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+    public void scheduleLeave(AudioManager audioManager, GuildMusicManager musicManager) {
+        scheduler.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("checking");
+                if (audioManager.getConnectedChannel().getMembers().size() == 1 || musicManager.audioPlayer.getPlayingTrack() == null && musicManager.scheduler.queue.isEmpty()) {
+                    audioManager.closeAudioConnection();
+                    System.out.println("closed");
+                    scheduler.shutdown();
+                }
+            }
+        }, 20, 20, TimeUnit.SECONDS);
     }
 }

@@ -46,7 +46,7 @@ public class PlayerManager {
             @Override
             public void trackLoaded(AudioTrack audioTrack) {
                 musicManager.scheduler.queue(audioTrack);
-                audioTrack.setUserData(new Pair<User, TextChannel>(user, (TextChannel) textChannel));
+                audioTrack.setUserData(new Pair<User,TextChannel>(user,(TextChannel) textChannel));
                 URI uri = URI.create(audioTrack.getInfo().uri);
                 String videoID = uri.getQuery().split("=")[1];
                 String url = "http://img.youtube.com/vi/" + videoID + "/0.jpg";
@@ -78,7 +78,7 @@ public class PlayerManager {
                 } else {
                     now = "▶️ " + musicManager.audioPlayer.getPlayingTrack().getInfo().title;
                 }
-                embed.setTitle("🎵 " + audioTrack.getInfo().title, audioTrack.getInfo().uri)
+                embed.setTitle("🎵 " + audioTrack.getInfo().title,audioTrack.getInfo().uri)
                         .setAuthor("📀 Adding to queue ")
                         .setDescription("** Requested by : ** `" + user.getName() + "#" + user.getDiscriminator() + "`")
                         .setThumbnail(url)
@@ -91,7 +91,6 @@ public class PlayerManager {
                         .setColor(15844367);
                 textChannel.sendMessageEmbeds(embed.build()).queue();
             }
-
             @Override
             public void playlistLoaded(AudioPlaylist audioPlaylist) {
                 final List<AudioTrack> tracks = audioPlaylist.getTracks();
@@ -100,7 +99,7 @@ public class PlayerManager {
                     for (AudioTrack track : tracks) {
                         musicManager.scheduler.queue(track);
                         length += track.getDuration();
-                        track.setUserData(new Pair<User, TextChannel>(user, (TextChannel) textChannel));
+                        track.setUserData(new Pair<User,TextChannel>(user,(TextChannel) textChannel));
                     }
                     EmbedBuilder embed = new EmbedBuilder();
                     embed.setTitle("✅ Playlist (" + Integer.toString(tracks.size()) + " songs) added", trackUrl)
@@ -111,7 +110,7 @@ public class PlayerManager {
                     textChannel.sendMessageEmbeds(embed.build()).queue();
                 } else if (!tracks.isEmpty()) {
                     musicManager.scheduler.queue(tracks.get(0));
-                    tracks.get(0).setUserData(new Pair<User, TextChannel>(user, (TextChannel) textChannel));
+                    tracks.get(0).setUserData(new Pair<User,TextChannel>(user,(TextChannel) textChannel));
                     URI uri = URI.create(tracks.get(0).getInfo().uri);
                     String videoID = uri.getQuery().split("=")[1];
                     String url = "http://img.youtube.com/vi/" + videoID + "/0.jpg";
