@@ -24,6 +24,6 @@ public class AutoLeave {
                     scheduler.shutdown();
                 }
             }
-        }, 20, 20, TimeUnit.SECONDS);
+        }, 30, 30, TimeUnit.SECONDS);
     }
 }
