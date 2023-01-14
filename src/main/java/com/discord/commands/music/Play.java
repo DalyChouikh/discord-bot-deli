@@ -60,7 +60,7 @@ public class Play extends ListenerAdapter {
     }
 
     private boolean isUrl(String link) {
-        if(link.contains("youtube.com/watch")){
+        if(link.contains("youtube.com/watch") || link.contains("youtube.com/playlist")){
             return true;
         }
         else{
