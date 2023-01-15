@@ -96,7 +96,9 @@ public class Lyrics extends ListenerAdapter {
                                                     .ofString());
                             JsonNode lyrics = mapper
                                     .readTree(responseLyrics.body());
+                            System.out.println(lyrics);
                             JsonNode html = lyrics.findValue("html");
+                            System.out.println(html);
                             if (html.isEmpty()) {
                                 EmbedBuilder embed = new EmbedBuilder();
                                 embed.setAuthor("❌ No lyrics are found")
