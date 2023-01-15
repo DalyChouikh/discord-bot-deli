@@ -61,6 +61,8 @@ public class Lyrics extends ListenerAdapter {
                             .split("(?<!\\w)feat(?!\\w)")[0].replaceAll(" ",
                             "%20");
                     try {
+                        System.out.println(System.getenv("API_KEY"));
+                        System.out.println(System.getenv("API_HOST"));
                         event.deferReply(false).queue();
                         HttpRequest requestId = HttpRequest.newBuilder()
                                 .uri(URI.create("https://genius-song-lyrics1.p.rapidapi.com/search/?q="
