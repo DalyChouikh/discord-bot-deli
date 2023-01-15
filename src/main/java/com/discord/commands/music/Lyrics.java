@@ -74,7 +74,6 @@ public class Lyrics extends ListenerAdapter {
                         ObjectMapper mapper = new ObjectMapper();
                         JsonNode song = mapper.readTree(responseId.body());
                         List<JsonNode> songsId = song.findValues("id");
-                        System.out.println(songsId);
                         if (songsId.isEmpty()) {
                             EmbedBuilder embed = new EmbedBuilder();
                             embed.setAuthor("❌ No lyrics are found")
@@ -88,7 +87,7 @@ public class Lyrics extends ListenerAdapter {
                             HttpRequest requestLyrics = HttpRequest.newBuilder()
                                     .uri(URI.create("https://genius-song-lyrics1.p.rapidapi.com/song/lyrics/?id=" + songId.asText()))
                                     .header("X-RapidAPI-Key", System.getenv("API_KEY"))
-                                    .header("X-RapidAPI-Host", System.getenv("API_HOST"))
+                                    .header("X-RapidAPI-Host", "genius-song-lyrics1.p.rapidapi.com")
                                     .method("GET", HttpRequest.BodyPublishers.noBody())
                                     .build();
                             HttpResponse<String> responseLyrics = HttpClient
@@ -97,9 +96,7 @@ public class Lyrics extends ListenerAdapter {
                                                     .ofString());
                             JsonNode lyrics = mapper
                                     .readTree(responseLyrics.body());
-                            System.out.println(lyrics);
                             JsonNode html = lyrics.findValue("html");
-                            System.out.println(html);
                             if (html.isEmpty()) {
                                 EmbedBuilder embed = new EmbedBuilder();
                                 embed.setAuthor("❌ No lyrics are found")
