@@ -29,6 +29,7 @@ public class ContextStop extends ListenerAdapter {
                 return;
             } else {
                 PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.player.stopTrack();
+                PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.player.setPaused(false);
                 PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.queue.clear();
                 event.getGuild().getAudioManager().closeAudioConnection();
                 EmbedBuilder embed = new EmbedBuilder();

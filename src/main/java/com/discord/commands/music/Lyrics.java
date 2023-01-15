@@ -202,6 +202,15 @@ public class Lyrics extends ListenerAdapter {
                                         "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
                         event.getHook().sendMessageEmbeds(embed.build()).queue();
                         return;
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                        EmbedBuilder embed = new EmbedBuilder();
+                        embed.setAuthor("❌ Couldn't fetch lyrics")
+                                .setColor(15844367)
+                                .setFooter("Developed by Daly#3068 ❤️",
+                                        "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                        event.getHook().sendMessageEmbeds(embed.build()).queue();
+                        return;
                     }
                 }
             }
