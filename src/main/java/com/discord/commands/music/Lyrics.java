@@ -61,7 +61,6 @@ public class Lyrics extends ListenerAdapter {
                             .split("(?<!\\w)feat(?!\\w)")[0].replaceAll(" ",
                             "%20");
                     try {
-                        System.out.println(System.getenv("API_KEY"));
                         event.deferReply(false).queue();
                         HttpRequest requestId = HttpRequest.newBuilder()
                                 .uri(URI.create("https://genius-song-lyrics1.p.rapidapi.com/search/?q="
@@ -75,6 +74,7 @@ public class Lyrics extends ListenerAdapter {
                         ObjectMapper mapper = new ObjectMapper();
                         JsonNode song = mapper.readTree(responseId.body());
                         List<JsonNode> songsId = song.findValues("id");
+                        System.out.println(songsId);
                         if (songsId.isEmpty()) {
                             EmbedBuilder embed = new EmbedBuilder();
                             embed.setAuthor("❌ No lyrics are found")
@@ -97,7 +97,9 @@ public class Lyrics extends ListenerAdapter {
                                                     .ofString());
                             JsonNode lyrics = mapper
                                     .readTree(responseLyrics.body());
+                            System.out.println(lyrics);
                             JsonNode html = lyrics.findValue("html");
+                            System.out.println(html);
                             if (html.isEmpty()) {
                                 EmbedBuilder embed = new EmbedBuilder();
                                 embed.setAuthor("❌ No lyrics are found")
