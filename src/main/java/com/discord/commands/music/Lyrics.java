@@ -62,13 +62,12 @@ public class Lyrics extends ListenerAdapter {
                             "%20");
                     try {
                         System.out.println(System.getenv("API_KEY"));
-                        System.out.println(System.getenv("API_HOST"));
                         event.deferReply(false).queue();
                         HttpRequest requestId = HttpRequest.newBuilder()
                                 .uri(URI.create("https://genius-song-lyrics1.p.rapidapi.com/search/?q="
                                         + title))
                                 .header("X-RapidAPI-Key", System.getenv("API_KEY"))
-                                .header("X-RapidAPI-Host", System.getenv("API_HOST"))
+                                .header("X-RapidAPI-Host", "genius-song-lyrics1.p.rapidapi.com")
                                 .method("GET", HttpRequest.BodyPublishers.noBody())
                                 .build();
                         HttpResponse<String> responseId = HttpClient.newHttpClient()
