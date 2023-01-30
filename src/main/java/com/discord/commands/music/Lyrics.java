@@ -99,7 +99,7 @@ public class Lyrics extends ListenerAdapter {
                             System.out.println(lyrics);
                             JsonNode html = lyrics.findValue("html");
                             System.out.println(html);
-                            if (html.isEmpty()) {
+                            if (html.isNull()) {
                                 EmbedBuilder embed = new EmbedBuilder();
                                 embed.setAuthor("❌ No lyrics are found")
                                         .setColor(15844367)
