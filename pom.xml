@@ -48,11 +48,6 @@
       <version>4.10.0</version>
     </dependency>
     <dependency>
-      <groupId>org.json</groupId>
-      <artifactId>json</artifactId>
-      <version>20220924</version>
-    </dependency>
-    <dependency>
       <groupId>net.dv8tion</groupId>
       <artifactId>JDA</artifactId>
       <version>5.0.0-beta.9</version>
@@ -60,18 +55,12 @@
     <dependency>
       <groupId>com.github.walkyst</groupId>
       <artifactId>lavaplayer-fork</artifactId>
-      <version>1.3.99.2</version>
+      <version>1.4.1</version>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <version>1.2.8</version>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
     </dependency>
   </dependencies>
 
