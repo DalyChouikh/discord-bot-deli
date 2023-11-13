@@ -27,7 +27,7 @@ public class Lyrics extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 You need to join a Voice channel")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
+                        .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
@@ -36,7 +36,7 @@ public class Lyrics extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 I need to join a Voice channel first")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
+                        .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
@@ -48,7 +48,7 @@ public class Lyrics extends ListenerAdapter {
                     EmbedBuilder embed = new EmbedBuilder();
                     embed.setAuthor("❌ There is currently no track playing")
                             .setColor(15844367)
-                            .setFooter("Developed by Daly#3068 ❤️",
+                            .setFooter("Developed by Daly. ❤️",
                                     "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
                     event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                     return;
@@ -78,7 +78,7 @@ public class Lyrics extends ListenerAdapter {
                             EmbedBuilder embed = new EmbedBuilder();
                             embed.setAuthor("❌ No lyrics are found")
                                     .setColor(15844367)
-                                    .setFooter("Developed by Daly#3068 ❤️",
+                                    .setFooter("Developed by Daly. ❤️",
                                             "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
                             event.getHook().sendMessageEmbeds(embed.build()).queue();
                             return;
@@ -103,7 +103,7 @@ public class Lyrics extends ListenerAdapter {
                                 EmbedBuilder embed = new EmbedBuilder();
                                 embed.setAuthor("❌ No lyrics are found")
                                         .setColor(15844367)
-                                        .setFooter("Developed by Daly#3068 ❤️",
+                                        .setFooter("Developed by Daly. ❤️",
                                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
                                 event.getHook().sendMessageEmbeds(embed.build()).queue();
                                 return;
@@ -123,11 +123,7 @@ public class Lyrics extends ListenerAdapter {
                                                 "📀 Lyrics requested by "
                                                         + event.getMember()
                                                         .getUser()
-                                                        .getName()
-                                                        + "#"
-                                                        + event.getMember()
-                                                        .getUser()
-                                                        .getDiscriminator(),
+                                                        .getName(),
                                                 null,
                                                 event.getMember().getUser()
                                                         .getEffectiveAvatarUrl())
@@ -137,7 +133,7 @@ public class Lyrics extends ListenerAdapter {
                                                         .getInfo().uri)
                                         .setThumbnail(url)
                                         .setColor(15844367)
-                                        .setFooter("Developed by Daly#3068 ❤️",
+                                        .setFooter("Developed by Daly. ❤️",
                                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
                                 try {
                                     embed.setDescription(lyric);
@@ -167,7 +163,7 @@ public class Lyrics extends ListenerAdapter {
                                 EmbedBuilder embed = new EmbedBuilder();
                                 embed.setAuthor("❌ No lyrics are found")
                                         .setColor(15844367)
-                                        .setFooter("Developed by Daly#3068 ❤️",
+                                        .setFooter("Developed by Daly. ❤️",
                                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
                                 event.getHook().sendMessageEmbeds(embed.build()).queue();
                                 return;

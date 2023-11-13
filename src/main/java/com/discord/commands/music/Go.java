@@ -22,8 +22,8 @@ public class Go extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 You need to join a Voice channel")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                        .setFooter("Developed by Daly. ❤️",
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
@@ -31,8 +31,8 @@ public class Go extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 I need to join a Voice channel first")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                        .setFooter("Developed by Daly. ❤️",
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
@@ -57,8 +57,7 @@ public class Go extends ListenerAdapter {
                         EmbedBuilder embed = new EmbedBuilder();
                         embed.setAuthor(
                                 "◀️ Went backward " + amount + " seconds (Requested by " + event.getMember().getUser().getName()
-                                        + "#"
-                                        + event.getMember().getUser().getDiscriminator() + ")",
+                                        + ")",
                                 null, event.getMember().getUser().getEffectiveAvatarUrl())
                                 .setThumbnail(url)
                                 .setTitle("🎵 " + audioPlayer.getPlayingTrack().getInfo().title, audioPlayer.getPlayingTrack().getInfo().uri)
@@ -67,16 +66,16 @@ public class Go extends ListenerAdapter {
                                                 + String.format("%02d:%02d:%02d", hours, minutes, seconds),
                                         false)
                                 .setColor(15844367)
-                                .setFooter("Developed by Daly#3068 ❤️",
-                                        "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                                .setFooter("Developed by Daly. ❤️",
+                                        "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                         event.replyEmbeds(embed.build()).setEphemeral(false).queue();
                         return;
                     } catch (NumberFormatException e) {
                         EmbedBuilder embed = new EmbedBuilder();
                         embed.setAuthor("⛔ Please enter a valid number")
                                 .setColor(15844367)
-                                .setFooter("Developed by Daly#3068 ❤️",
-                                        "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                                .setFooter("Developed by Daly. ❤️",
+                                        "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                         event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                         return;
                     }
@@ -102,28 +101,26 @@ public class Go extends ListenerAdapter {
                         User user = pair.getFirst();
                         EmbedBuilder embed = new EmbedBuilder();
                         embed.setAuthor(
-                                "▶️ Went forward " + amount + " seconds by " + event.getMember().getUser().getName()
-                                        + "#"
-                                        + event.getMember().getUser().getDiscriminator(),
+                                "▶️ Went forward " + amount + " seconds by " + event.getMember().getUser().getName(),
                                 null, event.getMember().getUser().getEffectiveAvatarUrl())
                                 .setThumbnail(url)
                                 .setTitle("🎵 " + audioPlayer.getPlayingTrack().getInfo().title, audioPlayer.getPlayingTrack().getInfo().uri)
-                                .setDescription("** Requested by : ** `" + user.getName() + "#" + user.getDiscriminator() + "`")
+                                .setDescription("** Requested by : ** `"  + "`")
                                 .addField("Played",
                                         "🕐 " + String.format("%02d:%02d:%02d", lhours, lminutes, lseconds) + "/"
                                                 + String.format("%02d:%02d:%02d", hours, minutes, seconds),
                                         false)
                                 .setColor(15844367)
-                                .setFooter("Developed by Daly#3068 ❤️",
-                                        "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                                .setFooter("Developed by Daly. ❤️",
+                                        "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                         event.replyEmbeds(embed.build()).setEphemeral(false).queue();
                         return;
                     } catch (NumberFormatException e) {
                         EmbedBuilder embed = new EmbedBuilder();
                         embed.setAuthor("⛔ Please enter a valid number")
                                 .setColor(15844367)
-                                .setFooter("Developed by Daly#3068 ❤️",
-                                        "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                                .setFooter("Developed by Daly. ❤️",
+                                        "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                         event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                         return;
                     }
@@ -132,8 +129,8 @@ public class Go extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("❌ There is currently no track playing")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                        .setFooter("Developed by Daly. ❤️",
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }

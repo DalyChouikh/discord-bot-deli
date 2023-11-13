@@ -23,7 +23,7 @@ public class Skip extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 You need to join a Voice channel")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
+                        .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
@@ -32,7 +32,7 @@ public class Skip extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 I need to join a Voice channel first")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
+                        .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
@@ -41,7 +41,7 @@ public class Skip extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("❌ There is currently no track playing")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
+                        .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
@@ -53,15 +53,14 @@ public class Skip extends ListenerAdapter {
                 String url = "http://img.youtube.com/vi/" + videoID + "/0.jpg";
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor(
-                        "⏭️ Skipped  by " + event.getMember().getUser().getName() + "#"
-                                + event.getMember().getUser().getDiscriminator(),
+                        "⏭️ Skipped  by " + event.getMember().getUser().getName(),
                         null, event.getMember().getUser().getEffectiveAvatarUrl())
                         .setThumbnail(url)
                         .setTitle("🎵 " + audioPlayer.getPlayingTrack().getInfo().title, audioPlayer.getPlayingTrack().getInfo().uri)
-                        .setDescription("** Requested by : ** `" + user.getName() + "#" + user.getDiscriminator() + "`")
+                        .setDescription("** Requested by : ** `" + user.getName() + "`")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                        .setFooter("Developed by Daly. ❤️",
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(false).queue();
                 musicManager.scheduler.nextTrack();
             }

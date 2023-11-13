@@ -21,8 +21,8 @@ public class Seek extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 You need to provide the song number in the queue")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                        .setFooter("Developed by Daly. ❤️",
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
@@ -30,8 +30,8 @@ public class Seek extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 You need to join a Voice channel")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                        .setFooter("Developed by Daly. ❤️",
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
@@ -39,8 +39,8 @@ public class Seek extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 I need to join a Voice channel first")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                        .setFooter("Developed by Daly. ❤️",
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
@@ -53,24 +53,24 @@ public class Seek extends ListenerAdapter {
                     embed.setAuthor("⛔ To seek the current song infos")
                             .setTitle("👉 Use /now")
                             .setColor(15844367)
-                            .setFooter("Developed by Daly#3068 ❤️",
-                                    "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                            .setFooter("Developed by Daly. ❤️",
+                                    "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                     event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                     return;
                 } else if (queue == 0 && audioPlayer.getPlayingTrack() == null) {
                     EmbedBuilder embed = new EmbedBuilder();
                     embed.setAuthor("❌ There is currently no track playing")
                             .setColor(15844367)
-                            .setFooter("Developed by Daly#3068 ❤️",
-                                    "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                            .setFooter("Developed by Daly. ❤️",
+                                    "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                     event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                     return;
                 } else if (queue > musicManager.scheduler.queue.size()) {
                     EmbedBuilder embed = new EmbedBuilder();
                     embed.setAuthor("❌ No song found with that position")
                             .setColor(15844367)
-                            .setFooter("Developed by Daly#3068 ❤️",
-                                    "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                            .setFooter("Developed by Daly. ❤️",
+                                    "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                     event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                     return;
                 } else {
@@ -103,7 +103,7 @@ public class Seek extends ListenerAdapter {
                             User user = pair.getFirst();
                             embed.setTitle(
                                     "🎵 " + track.getInfo().title , track.getInfo().uri)
-                                    .setDescription("** Requested by : ** `" + user.getName() + "#" + user.getDiscriminator() + "`")
+                                    .setDescription("** Requested by : ** `" + user.getName()  + "`")
                                     .setThumbnail(url)
                                     .addField("Now ", now, true)
                                     .addField("Next", next, true)
@@ -117,8 +117,8 @@ public class Seek extends ListenerAdapter {
                                             true)
                                     .addField("Position in Queue ", Integer.toString(queue + 1), true)
                                     .setColor(15844367)
-                                    .setFooter("Developed by Daly#3068 ❤️",
-                                            "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                                    .setFooter("Developed by Daly. ❤️",
+                                            "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                             event.replyEmbeds(embed.build()).setEphemeral(false).queue();
                             return;
                         }
@@ -129,8 +129,8 @@ public class Seek extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("⛔ Please enter a valid number")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                        .setFooter("Developed by Daly. ❤️",
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }

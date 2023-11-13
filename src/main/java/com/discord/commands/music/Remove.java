@@ -21,8 +21,8 @@ public class Remove extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 You need to provide the song number in the queue")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                        .setFooter("Developed by Daly. ❤️",
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
@@ -30,8 +30,8 @@ public class Remove extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 You need to join a Voice channel")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                        .setFooter("Developed by Daly. ❤️",
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
@@ -39,8 +39,8 @@ public class Remove extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 I need to join a Voice channel first")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                        .setFooter("Developed by Daly. ❤️",
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
@@ -52,8 +52,8 @@ public class Remove extends ListenerAdapter {
                     embed.setAuthor("⛔ To remove the current song")
                         .setTitle("👉 use /skip")
                             .setColor(15844367)
-                            .setFooter("Developed by Daly#3068 ❤️",
-                                    "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                            .setFooter("Developed by Daly. ❤️",
+                                    "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                     event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                     return;
                 }
@@ -62,8 +62,8 @@ public class Remove extends ListenerAdapter {
                     EmbedBuilder embed = new EmbedBuilder();
                     embed.setAuthor("❌ No song found with that position")
                             .setColor(15844367)
-                            .setFooter("Developed by Daly#3068 ❤️",
-                                    "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                            .setFooter("Developed by Daly. ❤️",
+                                    "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                     event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                     return;
                 } else {
@@ -83,11 +83,11 @@ public class Remove extends ListenerAdapter {
                                                 + event.getMember().getUser().getDiscriminator(),
                                         null, event.getMember().getUser().getEffectiveAvatarUrl())
                                         .setTitle(deletedTrack.getInfo().title, deletedTrack.getInfo().uri)
-                                        .setDescription("** Requested by : ** `" + user.getName() + "#" + user.getDiscriminator() + "`")
+                                        .setDescription("** Requested by : ** `" + user.getName()  + "`")
                                         .setThumbnail(url)
                                         .setColor(15844367)
-                                        .setFooter("Developed by Daly#3068 ❤️",
-                                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                                        .setFooter("Developed by Daly. ❤️",
+                                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                                 event.replyEmbeds(embed.build()).setEphemeral(false).queue();
                                 return;
                             }

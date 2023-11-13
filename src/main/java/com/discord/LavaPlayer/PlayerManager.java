@@ -15,6 +15,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
 import kotlin.Pair;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
@@ -56,7 +57,7 @@ public class PlayerManager {
                 Long seconds = duration / 1000 % 60;
                 Long playTime = 0L;
                 int queue = musicManager.scheduler.queue.size() + 1;
-                if (musicManager.scheduler.queue.size() > 0) {
+                if (!musicManager.scheduler.queue.isEmpty()) {
                     for (AudioTrack track : musicManager.scheduler.queue) {
                         playTime += track.getDuration();
                     }
@@ -80,9 +81,9 @@ public class PlayerManager {
                 }
                 embed.setTitle("🎵 " + audioTrack.getInfo().title,audioTrack.getInfo().uri)
                         .setAuthor("📀 Adding to queue ")
-                        .setDescription("** Requested by : ** `" + user.getName() + "#" + user.getDiscriminator() + "`")
+                        .setDescription("** Requested by : ** `" + user.getName()+ "`")
                         .setThumbnail(url)
-                        .setFooter("Developed by Daly#3068 ❤️", "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png")
+                        .setFooter("Developed by Daly. ❤️", "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png")
                         .addField("Length", "🕐 " + String.format("%02d:%02d:%02d", hours, minutes, seconds), true)
                         .addField("Now", now, true)
                         .addField("Next", next, true)
@@ -103,10 +104,10 @@ public class PlayerManager {
                     }
                     EmbedBuilder embed = new EmbedBuilder();
                     embed.setTitle("✅ Playlist (" + Integer.toString(tracks.size()) + " songs) added", trackUrl)
-                            .setDescription("** Requested by : ** `" + user.getName() + "#" + user.getDiscriminator() + "`")
+                            .setDescription("** Requested by : ** `" + user.getName() + "`")
                             .addField("Length", "🕐 " + String.format("%02d:%02d:%02d", length / 1000 / 60 / 60, length / 1000 / 60 % 60, length / 1000 % 60), true)
                             .setColor(15844367)
-                            .setFooter("Developed by Daly#3068 ❤️", "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                            .setFooter("Developed by Daly. ❤️", "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                     textChannel.sendMessageEmbeds(embed.build()).queue();
                 } else if (!tracks.isEmpty()) {
                     musicManager.scheduler.queue(tracks.get(0));
@@ -120,7 +121,7 @@ public class PlayerManager {
                     Long seconds = duration / 1000 % 60;
                     Long playTime = 0L;
                     int queue = musicManager.scheduler.queue.size() + 1;
-                    if (musicManager.scheduler.queue.size() > 0) {
+                    if (!musicManager.scheduler.queue.isEmpty()) {
                         for (AudioTrack track : musicManager.scheduler.queue) {
                             playTime += track.getDuration();
                         }
@@ -144,9 +145,9 @@ public class PlayerManager {
                     }
                     embed.setTitle("🎵 " + tracks.get(0).getInfo().title, tracks.get(0).getInfo().uri)
                             .setAuthor("📀 Adding to queue")
-                            .setDescription("** Requested by : ** `" + user.getName() + "#" + user.getDiscriminator() + "`")
+                            .setDescription("** Requested by : ** `" + user.getName() + "`")
                             .setThumbnail(url)
-                            .setFooter("Developed by Daly#3068 ❤️", "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png")
+                            .setFooter("Developed by Daly. ❤️", "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png")
                             .addField("Length", "🕐 " + String.format("%02d:%02d:%02d", hours, minutes, seconds), true)
                             .addField("Now", now, true)
                             .addField("Next", next, true)

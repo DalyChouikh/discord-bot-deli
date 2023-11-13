@@ -23,8 +23,8 @@ public class NowPlaying extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("❌ There is currently no track playing")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                        .setFooter("Developed by Daly. ❤️",
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             } else {
@@ -59,10 +59,10 @@ public class NowPlaying extends ListenerAdapter {
                 User user = pair.getFirst();
                 embed.setTitle("🎵 " + audioPlayer.getPlayingTrack().getInfo().title, audioPlayer.getPlayingTrack().getInfo().uri)
                         .setAuthor("📀 Now Playing ")
-                        .setDescription("** Requested by : ** `" + user.getName() + "#" + user.getDiscriminator() + "`")
+                        .setDescription("** Requested by : ** `" + user.getName() +  "`")
                         .setThumbnail(url)
-                        .setFooter("Developed by Daly#3068 ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png")
+                        .setFooter("Developed by Daly. ❤️",
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png")
                         .addField("Played", "🕐 " + String.format("%02d:%02d:%02d", lhours, lminutes, lseconds) + "/" + String.format("%02d:%02d:%02d", hours, minutes, seconds), true)
                         .addField("Now", now, true)
                         .addField("Next", next, true)

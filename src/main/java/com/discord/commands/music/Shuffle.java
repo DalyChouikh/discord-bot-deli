@@ -19,8 +19,8 @@ public class Shuffle extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 You need to join a Voice channel")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                        .setFooter("Developed by Daly. ❤️",
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
@@ -28,8 +28,8 @@ public class Shuffle extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 I need to join a Voice channel")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                        .setFooter("Developed by Daly. ❤️",
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             } else {
@@ -39,8 +39,8 @@ public class Shuffle extends ListenerAdapter {
                     EmbedBuilder embed = new EmbedBuilder();
                     embed.setAuthor("🔊 Queue is empty")
                             .setColor(15844367)
-                            .setFooter("Developed by Daly#3068 ❤️",
-                                    "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                            .setFooter("Developed by Daly. ❤️",
+                                    "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                     event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                     return;
                 } else {
@@ -52,8 +52,8 @@ public class Shuffle extends ListenerAdapter {
                     embed.setAuthor("\uD83E\uDDF9 Queue shuffled by " + event.getUser().getName() + "#" + event.getUser().getDiscriminator(),
                                     null, event.getUser().getEffectiveAvatarUrl())
                             .setColor(15844367)
-                            .setFooter("Developed by Daly#3068 ❤️",
-                                    "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                            .setFooter("Developed by Daly. ❤️",
+                                    "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                     event.replyEmbeds(embed.build()).setEphemeral(false).queue();
                     return;
                 }

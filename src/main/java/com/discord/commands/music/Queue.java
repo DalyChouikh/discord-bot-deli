@@ -22,8 +22,8 @@ public class Queue extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 You need to join a Voice channel")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                        .setFooter("Developed by Daly. ❤️",
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
@@ -31,8 +31,8 @@ public class Queue extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 I need to join a Voice channel first")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                        .setFooter("Developed by Daly. ❤️",
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
@@ -40,8 +40,8 @@ public class Queue extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("❌ There is currently no track playing")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                        .setFooter("Developed by Daly. ❤️",
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             } else {
@@ -57,25 +57,24 @@ public class Queue extends ListenerAdapter {
                 Pair<User, TextChannel> pair1 = (Pair<User, TextChannel>) audioPlayer.getPlayingTrack().getUserData();
                 User user1 = pair1.getFirst();
                 EmbedBuilder embed = new EmbedBuilder();
-                embed.setAuthor("📀 Queue Requested by " + event.getMember().getUser().getName() + "#"
-                        + event.getMember().getUser().getDiscriminator(),
+                embed.setAuthor("📀 Queue Requested by " + event.getMember().getUser().getName(),
                         null, event.getMember().getUser().getEffectiveAvatarUrl())
                         .addField("Song #1",
                                 audioPlayer.getPlayingTrack().getInfo().title + " **Played :** `"
                                         + String.format("%02d:%02d:%02d", playHours, playMinutes, playSeconds) + "/"
                                         + String.format("%02d:%02d:%02d", hours, minutes, seconds) + "`"
-                                        + "** Requested by : ** `" + user1.getName() + "#" + user1.getDiscriminator() + "`",
+                                        + "** Requested by : ** `" + user1.getName()  + "`",
                                 false)
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                        .setFooter("Developed by Daly. ❤️",
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 for (AudioTrack track : musicManager.scheduler.queue) {
                     Long apprTime = track.getDuration();
                     Pair<User, TextChannel> pair = (Pair<User, TextChannel>) track.getUserData();
                     User user = pair.getFirst();
                     embed.addField("Song #" + pos,
                             track.getInfo().title + "** Length :** `" + String.format("%02d:%02d:%02d", apprTime / 1000 / 60 / 60, apprTime / 1000 / 60 % 60, apprTime / 1000 % 60) + "`"
-                                    + "** Requested by : ** `" + user.getName() + "#" + user.getDiscriminator() + "`",
+                                    + "** Requested by : ** `" + user.getName()  + "`",
                             false);
                     pos++;
                 }

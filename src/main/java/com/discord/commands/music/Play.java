@@ -28,7 +28,7 @@ public class Play extends ListenerAdapter {
                 embed.setAuthor("🔊 You need to provide the Song name")
                         .setTitle("👉 Use /play [song name/URL]")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
+                        .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
@@ -45,7 +45,7 @@ public class Play extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("⛔ I either don't have permission to join this channel or to speak")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
+                        .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
