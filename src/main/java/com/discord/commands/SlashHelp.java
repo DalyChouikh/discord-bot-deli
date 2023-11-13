@@ -42,7 +42,7 @@ public class SlashHelp extends ListenerAdapter {
                             false)
                     .setColor(15844367)
                     .setFooter("Developed by Daly. ❤️",
-                            "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                            "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
             event.replyEmbeds(embed.build()).setEphemeral(true).queue();
             return;
         }

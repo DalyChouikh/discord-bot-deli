@@ -19,8 +19,8 @@ public class ContextPause extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 You need to join a Voice channel")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                        .setFooter("Developed by Daly. ❤️",
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
@@ -28,8 +28,8 @@ public class ContextPause extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 I need to join a Voice channel")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                        .setFooter("Developed by Daly. ❤️",
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
@@ -44,23 +44,22 @@ public class ContextPause extends ListenerAdapter {
                     User user = pair.getFirst();
                     EmbedBuilder embed = new EmbedBuilder();
                     embed.setAuthor(
-                                    "⏸️ Paused by " + event.getMember().getUser().getName() + "#"
-                                            + event.getMember().getUser().getDiscriminator(),
+                                    "⏸️ Paused by " + event.getMember().getUser().getName(),
                                     null, event.getMember().getUser().getEffectiveAvatarUrl())
                             .setTitle(audioPlayer.getPlayingTrack().getInfo().title, audioPlayer.getPlayingTrack().getInfo().uri)
-                            .setDescription("** Requested by : ** `" + user.getName() + "#" + user.getDiscriminator() + "`")
+                            .setDescription("** Requested by : ** `" + user.getName()  + "`")
                             .setThumbnail(url)
                             .setColor(15844367)
-                            .setFooter("Developed by Daly#3068 ❤️",
-                                    "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                            .setFooter("Developed by Daly. ❤️",
+                                    "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                     event.replyEmbeds(embed.build()).setEphemeral(false).queue();
                     return;
                 }else if(audioPlayer.isPaused()){
                     EmbedBuilder embed = new EmbedBuilder();
                     embed.setAuthor("\uD83D\uDEAB Song is paused")
                             .setColor(15844367)
-                            .setFooter("Developed by Daly#3068 ❤️",
-                                    "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                            .setFooter("Developed by Daly. ❤️",
+                                    "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                     event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                     return;
                 }
@@ -68,8 +67,8 @@ public class ContextPause extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("❌ There is no track playing")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                        .setFooter("Developed by Daly. ❤️",
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
