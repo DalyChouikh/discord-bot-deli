@@ -7,11 +7,9 @@
 
   <groupId>com.discord</groupId>
   <artifactId>deli</artifactId>
-  <version>1.4</version>
+  <version>2</version>
 
   <name>deli</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
