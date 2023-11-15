@@ -178,7 +178,7 @@ public class Lyrics extends ListenerAdapter {
                         EmbedBuilder embed = new EmbedBuilder();
                         embed.setAuthor("❌ Couldn't fetch lyrics")
                                 .setColor(15844367)
-                                .setFooter("Developed by Daly#3068 ❤️",
+                                .setFooter("Developed by Daly. ❤️",
                                         "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                         event.getHook().sendMessageEmbeds(embed.build()).queue();
                         return;
