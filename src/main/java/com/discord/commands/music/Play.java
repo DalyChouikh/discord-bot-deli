@@ -29,15 +29,15 @@ public class Play extends ListenerAdapter {
                         .setTitle("👉 Use /play [song name/URL]")
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             } else if (!event.getMember().getVoiceState().inAudioChannel()) {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 You need to join a Voice channel")
                         .setColor(15844367)
-                        .setFooter("Developed by Daly#3068 ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                        .setFooter("Developed by Daly. ❤️",
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             } else if (!event.getGuild().getSelfMember().hasPermission(channel, Permission.VOICE_CONNECT,
@@ -46,7 +46,7 @@ public class Play extends ListenerAdapter {
                 embed.setAuthor("⛔ I either don't have permission to join this channel or to speak")
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             } else{
