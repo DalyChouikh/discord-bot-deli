@@ -16,7 +16,7 @@ public class AutoCompleteGo extends ListenerAdapter {
                     .filter((word) -> word.startsWith(event.getFocusedOption().getValue()))
                     .map((word) -> new Command.Choice(word, word))
                     .collect(Collectors.toList());
-            event.replyChoices(options).queue();
+            event.replyChoices(options).complete();
         }
     }
 }

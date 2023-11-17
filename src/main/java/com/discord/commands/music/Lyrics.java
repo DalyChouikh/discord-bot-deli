@@ -29,7 +29,7 @@ public class Lyrics extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
+                event.replyEmbeds(embed.build()).setEphemeral(true).complete();
                 return;
             }
             if (!event.getGuild().getAudioManager().isConnected()) {
@@ -38,7 +38,7 @@ public class Lyrics extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
+                event.replyEmbeds(embed.build()).setEphemeral(true).complete();
                 return;
             } else {
                 final GuildMusicManager musicManager = PlayerManager.getInstance()
@@ -50,7 +50,7 @@ public class Lyrics extends ListenerAdapter {
                             .setColor(15844367)
                             .setFooter("Developed by Daly. ❤️",
                                     "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                    event.replyEmbeds(embed.build()).setEphemeral(true).queue();
+                    event.replyEmbeds(embed.build()).setEphemeral(true).complete();
                     return;
                 } else {
                     String title = audioPlayer.getPlayingTrack().getInfo().title;
@@ -61,7 +61,7 @@ public class Lyrics extends ListenerAdapter {
                             .split("(?<!\\w)feat(?!\\w)")[0].replaceAll(" ",
                             "%20");
                     try {
-                        event.deferReply(false).queue();
+                        event.deferReply(false).complete();
                         HttpRequest requestId = HttpRequest.newBuilder()
                                 .uri(URI.create("https://genius-song-lyrics1.p.rapidapi.com/search/?q="
                                         + title))
@@ -80,7 +80,7 @@ public class Lyrics extends ListenerAdapter {
                                     .setColor(15844367)
                                     .setFooter("Developed by Daly. ❤️",
                                             "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                            event.getHook().sendMessageEmbeds(embed.build()).queue();
+                            event.getHook().sendMessageEmbeds(embed.build()).complete();
                             return;
                         }
                         for (JsonNode songId : songsId) {
@@ -105,7 +105,7 @@ public class Lyrics extends ListenerAdapter {
                                         .setColor(15844367)
                                         .setFooter("Developed by Daly. ❤️",
                                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                                event.getHook().sendMessageEmbeds(embed.build()).queue();
+                                event.getHook().sendMessageEmbeds(embed.build()).complete();
                                 return;
                             }
                             if (!html.asText().contains("<h3>") && !html.isNull()) {
@@ -156,7 +156,7 @@ public class Lyrics extends ListenerAdapter {
                                                         false);
                                     }
                                 }
-                                event.getHook().sendMessageEmbeds(embed.build()).queue();
+                                event.getHook().sendMessageEmbeds(embed.build()).complete();
                                 break;
                             }
                             if(songId.equals(songsId.get(songsId.size()-1))){
@@ -165,12 +165,8 @@ public class Lyrics extends ListenerAdapter {
                                         .setColor(15844367)
                                         .setFooter("Developed by Daly. ❤️",
                                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                                event.getHook().sendMessageEmbeds(embed.build()).queue();
+                                event.getHook().sendMessageEmbeds(embed.build()).complete();
                                 return;
-                            }
-                            else {
-                                System.out.println("else");
-                                continue;
                             }
                         }
                     } catch (IOException | InterruptedException | NullPointerException e) {
@@ -180,7 +176,7 @@ public class Lyrics extends ListenerAdapter {
                                 .setColor(15844367)
                                 .setFooter("Developed by Daly. ❤️",
                                         "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                        event.getHook().sendMessageEmbeds(embed.build()).queue();
+                        event.getHook().sendMessageEmbeds(embed.build()).complete();
                         return;
                     }
                 }

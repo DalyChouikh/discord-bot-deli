@@ -30,7 +30,7 @@ public class Play extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
+                event.replyEmbeds(embed.build()).setEphemeral(true).complete();
                 return;
             } else if (!event.getMember().getVoiceState().inAudioChannel()) {
                 EmbedBuilder embed = new EmbedBuilder();
@@ -38,7 +38,7 @@ public class Play extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
+                event.replyEmbeds(embed.build()).setEphemeral(true).complete();
                 return;
             } else if (!event.getGuild().getSelfMember().hasPermission(channel, Permission.VOICE_CONNECT,
                     Permission.VOICE_SPEAK)) {
@@ -47,7 +47,7 @@ public class Play extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
+                event.replyEmbeds(embed.build()).setEphemeral(true).complete();
                 return;
             } else{
                 AudioManager audioManager = event.getGuild().getAudioManager();

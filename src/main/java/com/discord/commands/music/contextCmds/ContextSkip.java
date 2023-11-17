@@ -24,7 +24,7 @@ public class ContextSkip extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
+                event.replyEmbeds(embed.build()).setEphemeral(true).complete();
                 return;
             }
             if (!event.getGuild().getAudioManager().isConnected()) {
@@ -33,7 +33,7 @@ public class ContextSkip extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
+                event.replyEmbeds(embed.build()).setEphemeral(true).complete();
                 return;
             }else if (audioPlayer.getPlayingTrack() == null) {
                 EmbedBuilder embed = new EmbedBuilder();
@@ -41,7 +41,7 @@ public class ContextSkip extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
+                event.replyEmbeds(embed.build()).setEphemeral(true).complete();
                 return;
             } else {
                 URI uri = URI.create(audioPlayer.getPlayingTrack().getInfo().uri);
@@ -59,7 +59,7 @@ public class ContextSkip extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                event.replyEmbeds(embed.build()).setEphemeral(false).queue();
+                event.replyEmbeds(embed.build()).setEphemeral(false).complete();
                 musicManager.scheduler.nextTrack();
             }
         }

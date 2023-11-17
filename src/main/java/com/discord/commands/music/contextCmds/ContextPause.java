@@ -21,7 +21,7 @@ public class ContextPause extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
+                event.replyEmbeds(embed.build()).setEphemeral(true).complete();
                 return;
             }
             if (!event.getGuild().getAudioManager().isConnected()) {
@@ -30,7 +30,7 @@ public class ContextPause extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
+                event.replyEmbeds(embed.build()).setEphemeral(true).complete();
                 return;
             }
             AudioPlayer audioPlayer = PlayerManager.getInstance().getMusicManager(event.getGuild()).scheduler.player;
@@ -52,7 +52,7 @@ public class ContextPause extends ListenerAdapter {
                             .setColor(15844367)
                             .setFooter("Developed by Daly. ❤️",
                                     "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                    event.replyEmbeds(embed.build()).setEphemeral(false).queue();
+                    event.replyEmbeds(embed.build()).setEphemeral(false).complete();
                     return;
                 }else if(audioPlayer.isPaused()){
                     EmbedBuilder embed = new EmbedBuilder();
@@ -60,7 +60,7 @@ public class ContextPause extends ListenerAdapter {
                             .setColor(15844367)
                             .setFooter("Developed by Daly. ❤️",
                                     "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                    event.replyEmbeds(embed.build()).setEphemeral(true).queue();
+                    event.replyEmbeds(embed.build()).setEphemeral(true).complete();
                     return;
                 }
             }else {
@@ -69,7 +69,7 @@ public class ContextPause extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
+                event.replyEmbeds(embed.build()).setEphemeral(true).complete();
                 return;
             }
         }
