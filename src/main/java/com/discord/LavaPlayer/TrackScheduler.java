@@ -67,7 +67,7 @@ public class TrackScheduler extends AudioEventAdapter {
             }
             embed.setTitle("🎵 " + audioPlayer.getPlayingTrack().getInfo().title, audioPlayer.getPlayingTrack().getInfo().uri)
                     .setAuthor("📀 Now Playing ")
-                    .setDescription("** Requested by : ** `" + user.getName() + "#" + user.getDiscriminator() + "`")
+                    .setDescription("** Requested by : ** `" + user.getName() +  "`")
                     .setThumbnail(url)
                     .setFooter("Developed by Daly. ❤️",
                             "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png")
@@ -76,7 +76,7 @@ public class TrackScheduler extends AudioEventAdapter {
                     .addField("Next", next, true)
                     .setColor(15844367);
 
-            textChannel.sendMessageEmbeds(embed.build()).queue();
+            textChannel.sendMessageEmbeds(embed.build()).complete();
         }
         AudioManager audioManager = textChannel.getGuild().getAudioManager();
         AutoLeave autoLeave = new AutoLeave();
