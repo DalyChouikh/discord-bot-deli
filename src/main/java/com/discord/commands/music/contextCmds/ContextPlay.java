@@ -50,8 +50,8 @@ public class ContextPlay extends ListenerAdapter {
                 if (!isUrl(song)) {
                     song = "ytsearch:" + song + " audio";
                 }
-                event.deferReply(true).queue();
-                event.getHook().editOriginal("\uD83D\uDD0D Searching for **" + song.replaceAll("ytsearch:|audio", "") + "**").queue();
+                event.deferReply(true).complete();
+                event.getHook().editOriginal("\uD83D\uDD0D Searching for **" + song.replaceAll("ytsearch:|audio", "") + "**").complete();
                 PlayerManager.getInstance().loadAndPlay(channel, song, event.getUser());
             }
         }
