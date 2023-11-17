@@ -25,7 +25,7 @@ public class Skip extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                event.replyEmbeds(embed.build()).setEphemeral(true).complete();
+                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
             if (!event.getGuild().getAudioManager().isConnected()) {
@@ -34,7 +34,7 @@ public class Skip extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                event.replyEmbeds(embed.build()).setEphemeral(true).complete();
+                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
             if (audioPlayer.getPlayingTrack() == null) {
@@ -43,7 +43,7 @@ public class Skip extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                event.replyEmbeds(embed.build()).setEphemeral(true).complete();
+                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             } else {
                 URI uri = URI.create(audioPlayer.getPlayingTrack().getInfo().uri);
@@ -61,7 +61,7 @@ public class Skip extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                event.replyEmbeds(embed.build()).setEphemeral(false).complete();
+                event.replyEmbeds(embed.build()).setEphemeral(false).queue();
                 musicManager.scheduler.nextTrack();
             }
         }

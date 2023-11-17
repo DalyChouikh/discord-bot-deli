@@ -25,7 +25,7 @@ public class SlashPing extends ListenerAdapter {
                             "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
 
             event.deferReply(true).queue();
-            event.getHook().sendMessageEmbeds(embed.build()).complete();
+            event.getHook().sendMessageEmbeds(embed.build()).queue();
         }
     }
 }

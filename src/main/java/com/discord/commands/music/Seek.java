@@ -23,7 +23,7 @@ public class Seek extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                event.replyEmbeds(embed.build()).setEphemeral(true).complete();
+                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
             if (!event.getMember().getVoiceState().inAudioChannel()) {
@@ -32,7 +32,7 @@ public class Seek extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                event.replyEmbeds(embed.build()).setEphemeral(true).complete();
+                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
             if (!event.getGuild().getAudioManager().isConnected()) {
@@ -41,7 +41,7 @@ public class Seek extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                event.replyEmbeds(embed.build()).setEphemeral(true).complete();
+                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
             final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(event.getGuild());
@@ -55,7 +55,7 @@ public class Seek extends ListenerAdapter {
                             .setColor(15844367)
                             .setFooter("Developed by Daly. ❤️",
                                     "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                    event.replyEmbeds(embed.build()).setEphemeral(true).complete();
+                    event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                     return;
                 } else if (queue == 0 && audioPlayer.getPlayingTrack() == null) {
                     EmbedBuilder embed = new EmbedBuilder();
@@ -63,7 +63,7 @@ public class Seek extends ListenerAdapter {
                             .setColor(15844367)
                             .setFooter("Developed by Daly. ❤️",
                                     "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                    event.replyEmbeds(embed.build()).setEphemeral(true).complete();
+                    event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                     return;
                 } else if (queue > musicManager.scheduler.queue.size()) {
                     EmbedBuilder embed = new EmbedBuilder();
@@ -71,7 +71,7 @@ public class Seek extends ListenerAdapter {
                             .setColor(15844367)
                             .setFooter("Developed by Daly. ❤️",
                                     "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                    event.replyEmbeds(embed.build()).setEphemeral(true).complete();
+                    event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                     return;
                 } else {
                     String next;
@@ -119,7 +119,7 @@ public class Seek extends ListenerAdapter {
                                     .setColor(15844367)
                                     .setFooter("Developed by Daly. ❤️",
                                             "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                            event.replyEmbeds(embed.build()).setEphemeral(false).complete();
+                            event.replyEmbeds(embed.build()).setEphemeral(false).queue();
                             return;
                         }
                         i++;
@@ -131,7 +131,7 @@ public class Seek extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                event.replyEmbeds(embed.build()).setEphemeral(true).complete();
+                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
 

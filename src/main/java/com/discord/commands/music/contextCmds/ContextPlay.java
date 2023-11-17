@@ -23,7 +23,7 @@ public class ContextPlay extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                event.replyEmbeds(embed.build()).setEphemeral(true).complete();
+                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }else if (!event.getGuild().getSelfMember().hasPermission(channel, Permission.VOICE_CONNECT,
             Permission.VOICE_SPEAK)) {
@@ -32,7 +32,7 @@ public class ContextPlay extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                event.replyEmbeds(embed.build()).setEphemeral(true).complete();
+                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }else if(!event.getTarget().getContentRaw().contains("youtube.com/watch") && event.getTarget().getContentRaw().length() > 70){
                 EmbedBuilder embed = new EmbedBuilder();
@@ -40,7 +40,7 @@ public class ContextPlay extends ListenerAdapter {
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
                                 "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                event.replyEmbeds(embed.build()).setEphemeral(true).complete();
+                event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
             else{
@@ -50,16 +50,20 @@ public class ContextPlay extends ListenerAdapter {
                 if (!isUrl(song)) {
                     song = "ytsearch:" + song + " audio";
                 }
-                event.deferReply(true).complete();
-                event.getHook().editOriginal("\uD83D\uDD0D Searching for **" + song.replaceAll("ytsearch:|audio", "") + "**")
-                        .complete();
+                event.deferReply(true).queue();
+                event.getHook().editOriginal("\uD83D\uDD0D Searching for **" + song.replaceAll("ytsearch:|audio", "") + "**").queue();
                 PlayerManager.getInstance().loadAndPlay(channel, song, event.getUser());
             }
         }
     }
 
     private boolean isUrl(String link) {
-        return link.contains("youtube.com/watch");
+        if(link.contains("youtube.com/watch")){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
 }

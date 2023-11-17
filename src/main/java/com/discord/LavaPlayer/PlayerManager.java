@@ -166,7 +166,7 @@ public class PlayerManager {
                 String search = trackUrl.replaceAll("ytsearch:", "").replaceAll("audio", "");
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.addField("⛔ No matches were found for :", search, true).setColor(15844367).setFooter("Developed by Daly. ❤️", "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                textChannel.sendMessageEmbeds(embed.build()).complete();
+                textChannel.sendMessageEmbeds(embed.build()).queue();
             }
 
             @Override
@@ -174,7 +174,7 @@ public class PlayerManager {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setTitle("❌ Something happened, Couldn't load track").setColor(15844367).setFooter("Developed by Daly. ❤️", "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
 
-                textChannel.sendMessageEmbeds(embed.build()).complete();
+                textChannel.sendMessageEmbeds(embed.build()).queue();
             }
         });
     }
