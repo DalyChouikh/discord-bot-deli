@@ -17,8 +17,11 @@ import kotlin.Pair;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.exceptions.RateLimitedException;
+import net.dv8tion.jda.api.requests.RestAction;
 
 public class PlayerManager {
     private static PlayerManager INSTANCE;
@@ -90,7 +93,8 @@ public class PlayerManager {
                         .addField("Approx. time to play", "🕐 " + String.format("%02d:%02d:%02d", playHours, playminutes, playSeconds), true)
                         .addField("Position in Queue", queue + "/" + (musicManager.scheduler.queue.size() + 1), true)
                         .setColor(15844367);
-                textChannel.sendMessageEmbeds(embed.build()).queue();
+                RestAction<MessageEmbed> message =
+                        (RestAction<MessageEmbed>) textChannel.sendMessageEmbeds(embed.build()).complete();
             }
             @Override
             public void playlistLoaded(AudioPlaylist audioPlaylist) {
@@ -108,7 +112,8 @@ public class PlayerManager {
                             .addField("Length", "🕐 " + String.format("%02d:%02d:%02d", length / 1000 / 60 / 60, length / 1000 / 60 % 60, length / 1000 % 60), true)
                             .setColor(15844367)
                             .setFooter("Developed by Daly. ❤️", "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
-                    textChannel.sendMessageEmbeds(embed.build()).queue();
+                    RestAction<MessageEmbed> message =
+                            (RestAction<MessageEmbed>) textChannel.sendMessageEmbeds(embed.build()).complete();
                 } else if (!tracks.isEmpty()) {
                     musicManager.scheduler.queue(tracks.get(0));
                     tracks.get(0).setUserData(new Pair<User,TextChannel>(user,(TextChannel) textChannel));
@@ -154,7 +159,8 @@ public class PlayerManager {
                             .addField("Approx. time to play", "🕐 " + String.format("%02d:%02d:%02d", playHours, playminutes, playSeconds), true)
                             .addField("Position in Queue", queue + "/" + (musicManager.scheduler.queue.size() + 1), true)
                             .setColor(15844367);
-                    textChannel.sendMessageEmbeds(embed.build()).queue();
+                    RestAction<MessageEmbed> message =
+                            (RestAction<MessageEmbed>) textChannel.sendMessageEmbeds(embed.build()).complete();
                 }
             }
 
