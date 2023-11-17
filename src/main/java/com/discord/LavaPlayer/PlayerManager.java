@@ -93,7 +93,7 @@ public class PlayerManager {
                         .addField("Approx. time to play", "🕐 " + String.format("%02d:%02d:%02d", playHours, playminutes, playSeconds), true)
                         .addField("Position in Queue", queue + "/" + (musicManager.scheduler.queue.size() + 1), true)
                         .setColor(15844367);
-                textChannel.sendMessageEmbeds(embed.build()).complete();
+                textChannel.sendMessageEmbeds(embed.build()).queue();
             }
             @Override
             public void playlistLoaded(AudioPlaylist audioPlaylist) {
@@ -157,7 +157,7 @@ public class PlayerManager {
                             .addField("Approx. time to play", "🕐 " + String.format("%02d:%02d:%02d", playHours, playminutes, playSeconds), true)
                             .addField("Position in Queue", queue + "/" + (musicManager.scheduler.queue.size() + 1), true)
                             .setColor(15844367);
-                    textChannel.sendMessageEmbeds(embed.build()).complete();
+                    textChannel.sendMessageEmbeds(embed.build()).queue();
                 }
             }
 

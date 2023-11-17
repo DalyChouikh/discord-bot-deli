@@ -76,7 +76,7 @@ public class TrackScheduler extends AudioEventAdapter {
                     .addField("Next", next, true)
                     .setColor(15844367);
 
-            textChannel.sendMessageEmbeds(embed.build()).complete();
+            textChannel.sendMessageEmbeds(embed.build()).queue();
         }
         AudioManager audioManager = textChannel.getGuild().getAudioManager();
         AutoLeave autoLeave = new AutoLeave();
