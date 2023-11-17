@@ -137,15 +137,3 @@ public class Go extends ListenerAdapter {
         }
     }
 }
-
-
-// if (message.length != 3) {
-//     EmbedBuilder embed = new EmbedBuilder();
-//     embed.setAuthor("🔊 To use the go command properly")
-//             .setTitle("👉 Use -go [b(backward) | f(forward)] [amount in seconds]")
-//             .setColor(15844367)
-//             .setFooter("Developed by Daly#3068 ❤️",
-//                     "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
-//     event.getChannel().sendMessageEmbeds(embed.build()).queue();
-//     return;
-// }

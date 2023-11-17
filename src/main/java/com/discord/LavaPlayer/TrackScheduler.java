@@ -69,8 +69,8 @@ public class TrackScheduler extends AudioEventAdapter {
                     .setAuthor("📀 Now Playing ")
                     .setDescription("** Requested by : ** `" + user.getName() + "#" + user.getDiscriminator() + "`")
                     .setThumbnail(url)
-                    .setFooter("Developed by Daly#3068 ❤️",
-                            "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png")
+                    .setFooter("Developed by Daly. ❤️",
+                            "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png")
                     .addField("Length", "🕐 " + String.format("%02d:%02d:%02d", hours, minutes, seconds), true)
                     .addField("Now", now, true)
                     .addField("Next", next, true)

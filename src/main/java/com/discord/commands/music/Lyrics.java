@@ -28,7 +28,7 @@ public class Lyrics extends ListenerAdapter {
                 embed.setAuthor("🔊 You need to join a Voice channel")
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
@@ -37,7 +37,7 @@ public class Lyrics extends ListenerAdapter {
                 embed.setAuthor("🔊 I need to join a Voice channel first")
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             } else {
@@ -49,7 +49,7 @@ public class Lyrics extends ListenerAdapter {
                     embed.setAuthor("❌ There is currently no track playing")
                             .setColor(15844367)
                             .setFooter("Developed by Daly. ❤️",
-                                    "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                                    "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                     event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                     return;
                 } else {
@@ -79,7 +79,7 @@ public class Lyrics extends ListenerAdapter {
                             embed.setAuthor("❌ No lyrics are found")
                                     .setColor(15844367)
                                     .setFooter("Developed by Daly. ❤️",
-                                            "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                                            "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                             event.getHook().sendMessageEmbeds(embed.build()).queue();
                             return;
                         }
@@ -104,7 +104,7 @@ public class Lyrics extends ListenerAdapter {
                                 embed.setAuthor("❌ No lyrics are found")
                                         .setColor(15844367)
                                         .setFooter("Developed by Daly. ❤️",
-                                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                                 event.getHook().sendMessageEmbeds(embed.build()).queue();
                                 return;
                             }
@@ -134,7 +134,7 @@ public class Lyrics extends ListenerAdapter {
                                         .setThumbnail(url)
                                         .setColor(15844367)
                                         .setFooter("Developed by Daly. ❤️",
-                                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                                 try {
                                     embed.setDescription(lyric);
                                 } catch (IllegalArgumentException e) {
@@ -164,7 +164,7 @@ public class Lyrics extends ListenerAdapter {
                                 embed.setAuthor("❌ No lyrics are found")
                                         .setColor(15844367)
                                         .setFooter("Developed by Daly. ❤️",
-                                                "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                                 event.getHook().sendMessageEmbeds(embed.build()).queue();
                                 return;
                             }
@@ -178,8 +178,8 @@ public class Lyrics extends ListenerAdapter {
                         EmbedBuilder embed = new EmbedBuilder();
                         embed.setAuthor("❌ Couldn't fetch lyrics")
                                 .setColor(15844367)
-                                .setFooter("Developed by Daly#3068 ❤️",
-                                        "https://cdn.discordapp.com/avatars/392041081983860746/316401c64397974a28995adbe5ee5ed8.png");
+                                .setFooter("Developed by Daly. ❤️",
+                                        "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
                         event.getHook().sendMessageEmbeds(embed.build()).queue();
                         return;
                     }
