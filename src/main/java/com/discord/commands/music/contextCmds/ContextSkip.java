@@ -1,5 +1,6 @@
 package com.discord.commands.music.contextCmds;
 
+import com.discord.Bot;
 import com.discord.LavaPlayer.GuildMusicManager;
 import com.discord.LavaPlayer.PlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
@@ -23,7 +24,7 @@ public class ContextSkip extends ListenerAdapter {
                 embed.setAuthor("🔊 You need to join a Voice channel")
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
+                                Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl());
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
@@ -32,7 +33,7 @@ public class ContextSkip extends ListenerAdapter {
                 embed.setAuthor("🔊 I need to join a Voice channel")
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
+                                Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl());
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }else if (audioPlayer.getPlayingTrack() == null) {
@@ -40,7 +41,7 @@ public class ContextSkip extends ListenerAdapter {
                 embed.setAuthor("❌ There is currently no track playing")
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
+                                Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl());
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             } else {
@@ -58,7 +59,7 @@ public class ContextSkip extends ListenerAdapter {
                         .setTitle("🎵 " + audioPlayer.getPlayingTrack().getInfo().title, audioPlayer.getPlayingTrack().getInfo().uri)
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
+                                Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl());
                 event.replyEmbeds(embed.build()).setEphemeral(false).queue();
                 musicManager.scheduler.nextTrack();
             }

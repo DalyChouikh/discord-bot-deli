@@ -2,6 +2,7 @@ package com.discord.commands.music;
 
 import java.net.URI;
 
+import com.discord.Bot;
 import com.discord.LavaPlayer.GuildMusicManager;
 import com.discord.LavaPlayer.PlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
@@ -24,7 +25,7 @@ public class NowPlaying extends ListenerAdapter {
                 embed.setAuthor("❌ There is currently no track playing")
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
+                                Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl());
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             } else {
@@ -62,7 +63,7 @@ public class NowPlaying extends ListenerAdapter {
                         .setDescription("** Requested by : ** `" + user.getName() +  "`")
                         .setThumbnail(url)
                         .setFooter("Developed by Daly. ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png")
+                                Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl())
                         .addField("Played", "🕐 " + String.format("%02d:%02d:%02d", lhours, lminutes, lseconds) + "/" + String.format("%02d:%02d:%02d", hours, minutes, seconds), true)
                         .addField("Now", now, true)
                         .addField("Next", next, true)

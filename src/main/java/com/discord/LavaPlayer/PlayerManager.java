@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.discord.Bot;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
@@ -86,7 +87,7 @@ public class PlayerManager {
                         .setAuthor("📀 Adding to queue ")
                         .setDescription("** Requested by : ** `" + user.getName()+ "`")
                         .setThumbnail(url)
-                        .setFooter("Developed by Daly. ❤️", "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png")
+                        .setFooter("Developed by Daly. ❤️", Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl())
                         .addField("Length", "🕐 " + String.format("%02d:%02d:%02d", hours, minutes, seconds), true)
                         .addField("Now", now, true)
                         .addField("Next", next, true)
@@ -110,7 +111,7 @@ public class PlayerManager {
                             .setDescription("** Requested by : ** `" + user.getName() + "`")
                             .addField("Length", "🕐 " + String.format("%02d:%02d:%02d", length / 1000 / 60 / 60, length / 1000 / 60 % 60, length / 1000 % 60), true)
                             .setColor(15844367)
-                            .setFooter("Developed by Daly. ❤️", "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
+                            .setFooter("Developed by Daly. ❤️", Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl());
                     textChannel.sendMessageEmbeds(embed.build()).complete();
                 } else if (!tracks.isEmpty()) {
                     musicManager.scheduler.queue(tracks.get(0));
@@ -150,7 +151,7 @@ public class PlayerManager {
                             .setAuthor("📀 Adding to queue")
                             .setDescription("** Requested by : ** `" + user.getName() + "`")
                             .setThumbnail(url)
-                            .setFooter("Developed by Daly. ❤️", "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png")
+                            .setFooter("Developed by Daly. ❤️", Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl())
                             .addField("Length", "🕐 " + String.format("%02d:%02d:%02d", hours, minutes, seconds), true)
                             .addField("Now", now, true)
                             .addField("Next", next, true)
@@ -165,14 +166,15 @@ public class PlayerManager {
             public void noMatches() {
                 String search = trackUrl.replaceAll("ytsearch:", "").replaceAll("audio", "");
                 EmbedBuilder embed = new EmbedBuilder();
-                embed.addField("⛔ No matches were found for :", search, true).setColor(15844367).setFooter("Developed by Daly. ❤️", "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
+                embed.addField("⛔ No matches were found for :", search, true).setColor(15844367)
+                        .setFooter("Developed by Daly. ❤️", Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl());
                 textChannel.sendMessageEmbeds(embed.build()).queue();
             }
 
             @Override
             public void loadFailed(FriendlyException e) {
                 EmbedBuilder embed = new EmbedBuilder();
-                embed.setTitle("❌ Something happened, Couldn't load track").setColor(15844367).setFooter("Developed by Daly. ❤️", "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
+                embed.setTitle("❌ Something happened, Couldn't load track").setColor(15844367).setFooter("Developed by Daly. ❤️", Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl());
 
                 textChannel.sendMessageEmbeds(embed.build()).queue();
             }

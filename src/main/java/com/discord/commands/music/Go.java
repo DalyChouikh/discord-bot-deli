@@ -2,6 +2,7 @@ package com.discord.commands.music;
 
 import java.net.URI;
 
+import com.discord.Bot;
 import com.discord.LavaPlayer.GuildMusicManager;
 import com.discord.LavaPlayer.PlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
@@ -23,7 +24,7 @@ public class Go extends ListenerAdapter {
                 embed.setAuthor("🔊 You need to join a Voice channel")
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
+                                Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl());
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
@@ -32,7 +33,7 @@ public class Go extends ListenerAdapter {
                 embed.setAuthor("🔊 I need to join a Voice channel first")
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
+                                Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl());
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }
@@ -67,7 +68,7 @@ public class Go extends ListenerAdapter {
                                         false)
                                 .setColor(15844367)
                                 .setFooter("Developed by Daly. ❤️",
-                                        "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
+                                        Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl());
                         event.replyEmbeds(embed.build()).setEphemeral(false).queue();
                         return;
                     } catch (NumberFormatException e) {
@@ -75,7 +76,7 @@ public class Go extends ListenerAdapter {
                         embed.setAuthor("⛔ Please enter a valid number")
                                 .setColor(15844367)
                                 .setFooter("Developed by Daly. ❤️",
-                                        "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
+                                        Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl());
                         event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                         return;
                     }
@@ -112,7 +113,7 @@ public class Go extends ListenerAdapter {
                                         false)
                                 .setColor(15844367)
                                 .setFooter("Developed by Daly. ❤️",
-                                        "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
+                                        Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl());
                         event.replyEmbeds(embed.build()).setEphemeral(false).queue();
                         return;
                     } catch (NumberFormatException e) {
@@ -120,7 +121,7 @@ public class Go extends ListenerAdapter {
                         embed.setAuthor("⛔ Please enter a valid number")
                                 .setColor(15844367)
                                 .setFooter("Developed by Daly. ❤️",
-                                        "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
+                                        Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl());
                         event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                         return;
                     }
@@ -130,7 +131,7 @@ public class Go extends ListenerAdapter {
                 embed.setAuthor("❌ There is currently no track playing")
                         .setColor(15844367)
                         .setFooter("Developed by Daly. ❤️",
-                                "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png");
+                                Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl());
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
             }

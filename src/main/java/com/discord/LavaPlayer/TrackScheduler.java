@@ -1,5 +1,6 @@
 package com.discord.LavaPlayer;
 
+import com.discord.Bot;
 import com.discord.events.AutoLeave;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
@@ -70,7 +71,7 @@ public class TrackScheduler extends AudioEventAdapter {
                     .setDescription("** Requested by : ** `" + user.getName() +  "`")
                     .setThumbnail(url)
                     .setFooter("Developed by Daly. ❤️",
-                            "https://cdn.discordapp.com/avatars/392041081983860746/57fd83084f10579392e5fbb0dc6bbf7c.png")
+                            Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl())
                     .addField("Length", "🕐 " + String.format("%02d:%02d:%02d", hours, minutes, seconds), true)
                     .addField("Now", now, true)
                     .addField("Next", next, true)

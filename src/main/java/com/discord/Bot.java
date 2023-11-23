@@ -11,6 +11,7 @@ import com.discord.events.AutoCompleteGo;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
@@ -25,34 +26,35 @@ public class Bot {
             GatewayIntent.GUILD_EMOJIS_AND_STICKERS, GatewayIntent.SCHEDULED_EVENTS,
             GatewayIntent.MESSAGE_CONTENT};
 
+    public final static JDA bot = JDABuilder.create(Arrays.asList(INTENTS))
+            .enableCache(CacheFlag.VOICE_STATE, CacheFlag.EMOJI)
+            .setToken(System.getenv("DELIFY_TOKEN"))
+            .setMemberCachePolicy(MemberCachePolicy.ALL)
+            .addEventListeners(new SlashPing())
+            .addEventListeners(new Play())
+            .addEventListeners(new NowPlaying())
+            .addEventListeners(new Pause())
+            .addEventListeners(new Skip())
+            .addEventListeners(new Stop())
+            .addEventListeners(new Lyrics())
+            .addEventListeners(new Remove())
+            .addEventListeners(new Queue())
+            .addEventListeners(new Go())
+            .addEventListeners(new Seek())
+            .addEventListeners(new SlashHelp())
+            .addEventListeners(new Resume())
+            .addEventListeners(new AutoCompleteGo())
+            .addEventListeners(new ContextPlay())
+            .addEventListeners(new Clear())
+            .addEventListeners(new Shuffle())
+            .addEventListeners(new ContextStop())
+            .addEventListeners(new ContextSkip())
+            .addEventListeners(new ContextPause())
+            .addEventListeners(new ContextResume())
+            .build();
+
     public static void main(String[] args) throws Exception {
         String token = System.getenv("DELIFY_TOKEN");
-        JDA bot = JDABuilder.create(Arrays.asList(INTENTS))
-                .enableCache(CacheFlag.VOICE_STATE, CacheFlag.EMOJI)
-                .setToken(token)
-                .setMemberCachePolicy(MemberCachePolicy.ALL)
-                .addEventListeners(new SlashPing())
-                .addEventListeners(new Play())
-                .addEventListeners(new NowPlaying())
-                .addEventListeners(new Pause())
-                .addEventListeners(new Skip())
-                .addEventListeners(new Stop())
-                .addEventListeners(new Lyrics())
-                .addEventListeners(new Remove())
-                .addEventListeners(new Queue())
-                .addEventListeners(new Go())
-                .addEventListeners(new Seek())
-                .addEventListeners(new SlashHelp())
-                .addEventListeners(new Resume())
-                .addEventListeners(new AutoCompleteGo())
-                .addEventListeners(new ContextPlay())
-                .addEventListeners(new Clear())
-                .addEventListeners(new Shuffle())
-                .addEventListeners(new ContextStop())
-                .addEventListeners(new ContextSkip())
-                .addEventListeners(new ContextPause())
-                .addEventListeners(new ContextResume())
-                .build();
         bot.getPresence()
                 .setActivity(Activity.listening("/help !"));
         bot.updateCommands()
