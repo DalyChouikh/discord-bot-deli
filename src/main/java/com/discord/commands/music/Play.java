@@ -23,8 +23,11 @@ import java.util.concurrent.TimeUnit;
 public class Play extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        StageChannelImpl stageChannel = (StageChannelImpl) event.getMember().getVoiceState().getChannel();
-        VoiceChannel voiceChannel = (VoiceChannel) event.getMember().getVoiceState().getChannel();
+        AudioChannel audioChannel = event.getMember().getVoiceState().getChannel();
+        if(event.getMember().getVoiceState().getChannel() instanceof StageChannelImpl){
+            audioChannel = (StageChannelImpl) event.getMember().getVoiceState().getChannel();
+        }
+        else audioChannel = (VoiceChannel) event.getMember().getVoiceState().getChannel();
         TextChannel channel = (TextChannel) event.getChannel();
         if (event.getName().equalsIgnoreCase("play")) {
             if (event.getOptionsByName("song").isEmpty()) {
@@ -55,11 +58,7 @@ public class Play extends ListenerAdapter {
                 return;
             } else{
                 AudioManager audioManager = event.getGuild().getAudioManager();
-                if(stageChannel != null){
-                    audioManager.openAudioConnection(stageChannel);
-                }else {
-                    audioManager.openAudioConnection(voiceChannel);
-                }
+                audioManager.openAudioConnection(audioChannel);
                 String song = event.getOption("song").getAsString();
                 if (!isUrl(song)) {
                     song = "ytsearch:" + song + " audio";
