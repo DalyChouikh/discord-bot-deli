@@ -9,10 +9,12 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
+import net.dv8tion.jda.api.entities.channel.middleman.AudioChannel;
 import net.dv8tion.jda.api.entities.channel.unions.AudioChannelUnion;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.managers.AudioManager;
+import net.dv8tion.jda.internal.entities.channel.concrete.StageChannelImpl;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -21,7 +23,8 @@ import java.util.concurrent.TimeUnit;
 public class Play extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        VoiceChannel connectedChannel = (VoiceChannel) event.getMember().getVoiceState().getChannel();
+        StageChannelImpl stageChannel = (StageChannelImpl) event.getMember().getVoiceState().getChannel();
+        VoiceChannel voiceChannel = (VoiceChannel) event.getMember().getVoiceState().getChannel();
         TextChannel channel = (TextChannel) event.getChannel();
         if (event.getName().equalsIgnoreCase("play")) {
             if (event.getOptionsByName("song").isEmpty()) {
@@ -52,7 +55,11 @@ public class Play extends ListenerAdapter {
                 return;
             } else{
                 AudioManager audioManager = event.getGuild().getAudioManager();
-                audioManager.openAudioConnection((AudioChannelUnion) connectedChannel);
+                if(stageChannel != null){
+                    audioManager.openAudioConnection(stageChannel);
+                }else {
+                    audioManager.openAudioConnection(voiceChannel);
+                }
                 String song = event.getOption("song").getAsString();
                 if (!isUrl(song)) {
                     song = "ytsearch:" + song + " audio";
