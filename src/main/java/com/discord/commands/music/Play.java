@@ -16,6 +16,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.managers.AudioManager;
 import net.dv8tion.jda.internal.entities.channel.concrete.StageChannelImpl;
 
+import java.net.URI;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -23,11 +24,7 @@ import java.util.concurrent.TimeUnit;
 public class Play extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        AudioChannel audioChannel = event.getMember().getVoiceState().getChannel();
-        if(event.getMember().getVoiceState().getChannel() instanceof StageChannelImpl){
-            audioChannel = (StageChannelImpl) event.getMember().getVoiceState().getChannel();
-        }
-        else audioChannel = (VoiceChannel) event.getMember().getVoiceState().getChannel();
+        VoiceChannel connectedChannel = (VoiceChannel) event.getMember().getVoiceState().getChannel();
         TextChannel channel = (TextChannel) event.getChannel();
         if (event.getName().equalsIgnoreCase("play")) {
             if (event.getOptionsByName("song").isEmpty()) {
@@ -58,13 +55,13 @@ public class Play extends ListenerAdapter {
                 return;
             } else{
                 AudioManager audioManager = event.getGuild().getAudioManager();
-                audioManager.openAudioConnection(audioChannel);
+                audioManager.openAudioConnection(connectedChannel);
                 String song = event.getOption("song").getAsString();
                 if (!isUrl(song)) {
-                    song = "ytsearch:" + song + " audio";
+                    song = "ytsearch:" + song  ;
                 }
                 event.deferReply(true).complete();
-                event.getHook().editOriginal("\uD83D\uDD0D Searching for **" + song.replaceAll("ytsearch:|audio", "") + "**")
+                event.getHook().editOriginal("\uD83D\uDD0D Searching for **" + song.replaceAll("[a-zA-Z]*search:|audio", "") + "**")
                         .complete();
                 PlayerManager.getInstance().loadAndPlay(channel, song, event.getUser());
             }
@@ -73,7 +70,7 @@ public class Play extends ListenerAdapter {
     }
 
     private boolean isUrl(String link) {
-        return link.contains("youtube.com/watch") || link.contains("youtube.com/playlist");
+        return (link.contains("youtube.com/watch") || link.contains("youtube.com/playlist")) && URI.create(link).getScheme() != null;
     }
 
 }

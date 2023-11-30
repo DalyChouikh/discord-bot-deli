@@ -1,16 +1,29 @@
 package com.discord.LavaPlayer;
 
+import java.awt.*;
 import java.net.URI;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.discord.Bot;
+import com.github.topisenpai.lavasrc.spotify.SpotifyAudioTrack;
+import com.github.topisenpai.lavasrc.spotify.SpotifySourceManager;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
+import com.sedmelluq.discord.lavaplayer.source.bandcamp.BandcampAudioSourceManager;
+import com.sedmelluq.discord.lavaplayer.source.beam.BeamAudioSourceManager;
+import com.sedmelluq.discord.lavaplayer.source.http.HttpAudioSourceManager;
+import com.sedmelluq.discord.lavaplayer.source.local.LocalAudioSourceManager;
+import com.sedmelluq.discord.lavaplayer.source.soundcloud.SoundCloudAudioSourceManager;
+import com.sedmelluq.discord.lavaplayer.source.twitch.TwitchStreamAudioSourceManager;
+import com.sedmelluq.discord.lavaplayer.source.vimeo.VimeoAudioSourceManager;
+import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
+import com.sedmelluq.discord.lavaplayer.track.AudioItem;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
@@ -23,6 +36,7 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.exceptions.RateLimitedException;
 import net.dv8tion.jda.api.requests.RestAction;
+import org.apache.commons.lang3.time.DurationFormatUtils;
 
 public class PlayerManager {
     private static PlayerManager INSTANCE;
@@ -32,9 +46,10 @@ public class PlayerManager {
     public PlayerManager() {
         this.musicManagers = new HashMap<>();
         this.audioPlayerManager = new DefaultAudioPlayerManager();
-
+        audioPlayerManager.registerSourceManager(new YoutubeAudioSourceManager());
+        audioPlayerManager.registerSourceManager(new SpotifySourceManager(null,System.getenv("SPOTIFY_CLIENT_ID"),System.getenv("SPOTIFY_CLIENT_SECRET"),
+                System.getenv("COUNTRY_CODE"), this.audioPlayerManager));
         AudioSourceManagers.registerRemoteSources(this.audioPlayerManager);
-        AudioSourceManagers.registerLocalSource(this.audioPlayerManager);
     }
 
     public GuildMusicManager getMusicManager(Guild guild) {
@@ -55,11 +70,9 @@ public class PlayerManager {
                 URI uri = URI.create(audioTrack.getInfo().uri);
                 String videoID = uri.getQuery().split("=")[1];
                 String url = "http://img.youtube.com/vi/" + videoID + "/0.jpg";
-                Long duration = audioTrack.getInfo().length;
-                Long hours = duration / 1000 / 60 / 60;
-                Long minutes = duration / 1000 / 60 % 60;
-                Long seconds = duration / 1000 % 60;
-                Long playTime = 0L;
+                long duration = audioTrack.getInfo().length;
+                System.out.println(Duration.ofMillis(duration));
+                long playTime = 0L;
                 int queue = musicManager.scheduler.queue.size() + 1;
                 if (!musicManager.scheduler.queue.isEmpty()) {
                     for (AudioTrack track : musicManager.scheduler.queue) {
@@ -67,9 +80,6 @@ public class PlayerManager {
                     }
                     playTime += (musicManager.scheduler.player.getPlayingTrack().getDuration() - musicManager.scheduler.player.getPlayingTrack().getPosition()) - audioTrack.getDuration();
                 }
-                Long playHours = playTime / 1000 / 60 / 60;
-                Long playminutes = playTime / 1000 / 60 % 60;
-                Long playSeconds = playTime / 1000 % 60;
                 EmbedBuilder embed = new EmbedBuilder();
                 String next;
                 String now;
@@ -88,10 +98,10 @@ public class PlayerManager {
                         .setDescription("** Requested by : ** `" + user.getName()+ "`")
                         .setThumbnail(url)
                         .setFooter("Developed by Daly. ❤️", Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl())
-                        .addField("Length", "🕐 " + String.format("%02d:%02d:%02d", hours, minutes, seconds), true)
+                        .addField("Length", "🕐 " + DurationFormatUtils.formatDuration(duration, "HH:mm:ss"), true)
                         .addField("Now", now, true)
                         .addField("Next", next, true)
-                        .addField("Approx. time to play", "🕐 " + String.format("%02d:%02d:%02d", playHours, playminutes, playSeconds), true)
+                        .addField("Approx. time to play", "🕐 " + DurationFormatUtils.formatDuration(playTime, "HH:mm:ss"), true)
                         .addField("Position in Queue", queue + "/" + (musicManager.scheduler.queue.size() + 1), true)
                         .setColor(15844367);
                 textChannel.sendMessageEmbeds(embed.build()).queue();
@@ -99,41 +109,38 @@ public class PlayerManager {
             @Override
             public void playlistLoaded(AudioPlaylist audioPlaylist) {
                 final List<AudioTrack> tracks = audioPlaylist.getTracks();
-                Long length = 0L;
-                if (trackUrl.contains("&list")) {
+                long length = 0L;
+                if (trackUrl.contains("&list") || (trackUrl.contains("open.spotify.com") && !trackUrl.contains("track"))) {
+                    System.out.println("playlist");
                     for (AudioTrack track : tracks) {
                         musicManager.scheduler.queue(track);
                         length += track.getDuration();
-                        track.setUserData(new Pair<User,TextChannel>(user,(TextChannel) textChannel));
+                        track.setUserData(new Pair<User,TextChannel>(user,textChannel));
                     }
                     EmbedBuilder embed = new EmbedBuilder();
-                    embed.setTitle("✅ Playlist (" + Integer.toString(tracks.size()) + " songs) added", trackUrl)
+                    embed.setTitle("✅ Playlist (" + tracks.size() + " songs) added", trackUrl.contains("spotify") ? trackUrl.replaceAll("ytsearch:", "") : trackUrl)
                             .setDescription("** Requested by : ** `" + user.getName() + "`")
-                            .addField("Length", "🕐 " + String.format("%02d:%02d:%02d", length / 1000 / 60 / 60, length / 1000 / 60 % 60, length / 1000 % 60), true)
+                            .addField("Length", "🕐 " + DurationFormatUtils.formatDuration(length, "HH:mm:ss"), true)
                             .setColor(15844367)
                             .setFooter("Developed by Daly. ❤️", Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl());
-                    textChannel.sendMessageEmbeds(embed.build()).complete();
+                    textChannel.sendMessageEmbeds(embed.build()).queue();
                 } else if (!tracks.isEmpty()) {
-                    musicManager.scheduler.queue(tracks.get(0));
-                    tracks.get(0).setUserData(new Pair<User,TextChannel>(user,(TextChannel) textChannel));
-                    URI uri = URI.create(tracks.get(0).getInfo().uri);
+                    System.out.println("track");
+                    AudioTrack playingTrack = tracks.get(0);
+                    musicManager.scheduler.queue(playingTrack);
+                    playingTrack.setUserData(new Pair<User,TextChannel>(user,(TextChannel) textChannel));
+                    URI uri = URI.create(playingTrack.getInfo().uri);
                     String videoID = uri.getQuery().split("=")[1];
                     String url = "http://img.youtube.com/vi/" + videoID + "/0.jpg";
-                    Long duration = tracks.get(0).getInfo().length;
-                    Long hours = duration / 1000 / 60 / 60;
-                    Long minutes = duration / 1000 / 60 % 60;
-                    Long seconds = duration / 1000 % 60;
-                    Long playTime = 0L;
+                    long duration = playingTrack.getInfo().length;
+                    long playTime = 0L;
                     int queue = musicManager.scheduler.queue.size() + 1;
                     if (!musicManager.scheduler.queue.isEmpty()) {
                         for (AudioTrack track : musicManager.scheduler.queue) {
                             playTime += track.getDuration();
                         }
-                        playTime += (musicManager.scheduler.player.getPlayingTrack().getDuration() - musicManager.scheduler.player.getPlayingTrack().getPosition()) - tracks.get(0).getDuration();
+                        playTime += (musicManager.scheduler.player.getPlayingTrack().getDuration() - musicManager.scheduler.player.getPlayingTrack().getPosition()) - playingTrack.getDuration();
                     }
-                    Long playHours = playTime / 1000 / 60 / 60;
-                    Long playminutes = playTime / 1000 / 60 % 60;
-                    Long playSeconds = playTime / 1000 % 60;
                     EmbedBuilder embed = new EmbedBuilder();
                     String next;
                     String now;
@@ -147,15 +154,15 @@ public class PlayerManager {
                     } else {
                         now = "▶️ " + musicManager.audioPlayer.getPlayingTrack().getInfo().title;
                     }
-                    embed.setTitle("🎵 " + tracks.get(0).getInfo().title, tracks.get(0).getInfo().uri)
+                    embed.setTitle("🎵 " + playingTrack.getInfo().title, playingTrack.getInfo().uri)
                             .setAuthor("📀 Adding to queue")
                             .setDescription("** Requested by : ** `" + user.getName() + "`")
                             .setThumbnail(url)
                             .setFooter("Developed by Daly. ❤️", Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl())
-                            .addField("Length", "🕐 " + String.format("%02d:%02d:%02d", hours, minutes, seconds), true)
+                            .addField("Length", "🕐 " + DurationFormatUtils.formatDuration(duration, "HH:mm:ss"), true)
                             .addField("Now", now, true)
                             .addField("Next", next, true)
-                            .addField("Approx. time to play", "🕐 " + String.format("%02d:%02d:%02d", playHours, playminutes, playSeconds), true)
+                            .addField("Approx. time to play", "🕐 " + DurationFormatUtils.formatDuration(playTime, "HH:mm:ss"), true)
                             .addField("Position in Queue", queue + "/" + (musicManager.scheduler.queue.size() + 1), true)
                             .setColor(15844367);
                     textChannel.sendMessageEmbeds(embed.build()).queue();
@@ -173,6 +180,7 @@ public class PlayerManager {
 
             @Override
             public void loadFailed(FriendlyException e) {
+                System.out.println(e.getMessage());
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setTitle("❌ Something happened, Couldn't load track").setColor(15844367).setFooter("Developed by Daly. ❤️", Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl());
 
