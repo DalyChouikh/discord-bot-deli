@@ -37,9 +37,30 @@
         <enabled>true</enabled>
       </snapshots>
     </repository>
+    <repository>
+      <id>lavasearch</id>
+      <url>https://maven.topi.wtf/releases</url>
+    </repository>
   </repositories>
 
   <dependencies>
+    <dependency>
+      <groupId>com.github.TopiSenpai.LavaSrc</groupId>
+      <artifactId>lavasrc-plugin</artifactId>
+      <version>3.2.9</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>2.0.5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>2.0.5</version>
+      <type>pom</type>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>com.squareup.okhttp3</groupId>
       <artifactId>okhttp</artifactId>
@@ -59,6 +80,16 @@
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <version>1.4.11</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.TopiSenpai.LavaSrc</groupId>
+      <artifactId>lavasrc</artifactId>
+      <version>3.2.9</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.12.0</version>
     </dependency>
   </dependencies>
 
