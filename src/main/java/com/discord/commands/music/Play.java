@@ -7,6 +7,7 @@ import com.discord.LavaPlayer.PlayerManager;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.channel.concrete.StageChannel;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.api.entities.channel.middleman.AudioChannel;
@@ -24,9 +25,9 @@ import java.util.concurrent.TimeUnit;
 public class Play extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        VoiceChannel connectedChannel = (VoiceChannel) event.getMember().getVoiceState().getChannel();
-        TextChannel channel = (TextChannel) event.getChannel();
         if (event.getName().equalsIgnoreCase("play")) {
+            AudioChannel connectedChannel = event.getMember().getVoiceState().getChannel();
+            TextChannel channel = (TextChannel) event.getChannel();
             if (event.getOptionsByName("song").isEmpty()) {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("🔊 You need to provide the Song name")
@@ -44,7 +45,7 @@ public class Play extends ListenerAdapter {
                                 Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl());
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
-            } else if (!event.getGuild().getSelfMember().hasPermission(channel, Permission.VOICE_CONNECT,
+            } else if (!event.getGuild().getSelfMember().hasPermission(connectedChannel, Permission.VOICE_CONNECT,
                     Permission.VOICE_SPEAK)) {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("⛔ I either don't have permission to join this channel or to speak")
@@ -56,6 +57,7 @@ public class Play extends ListenerAdapter {
             } else{
                 AudioManager audioManager = event.getGuild().getAudioManager();
                 audioManager.openAudioConnection(connectedChannel);
+
                 String song = event.getOption("song").getAsString();
                 if (!isUrl(song)) {
                     song = "ytsearch:" + song  ;

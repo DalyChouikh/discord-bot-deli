@@ -12,19 +12,14 @@ import net.dv8tion.jda.api.entities.channel.unions.AudioChannelUnion;
 import net.dv8tion.jda.api.events.interaction.command.MessageContextInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.managers.AudioManager;
-import net.dv8tion.jda.internal.entities.channel.concrete.StageChannelImpl;
 
 import java.net.URI;
 
 public class ContextPlay extends ListenerAdapter {
-    
+
     public void onMessageContextInteraction(MessageContextInteractionEvent event){
         if(event.getName().equals("Play this song")){
-            AudioChannel connectedChannel;
-            if(event.getMember().getVoiceState().getChannel() instanceof StageChannelImpl){
-                connectedChannel = (StageChannelImpl) event.getMember().getVoiceState().getChannel();
-            }
-            else connectedChannel = (VoiceChannel) event.getMember().getVoiceState().getChannel();
+            AudioChannel connectedChannel = event.getMember().getVoiceState().getChannel();
             TextChannel channel = (TextChannel) event.getChannel();
             if (!event.getMember().getVoiceState().inAudioChannel()) {
                 EmbedBuilder embed = new EmbedBuilder();
@@ -34,8 +29,8 @@ public class ContextPlay extends ListenerAdapter {
                                 Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl());
                 event.replyEmbeds(embed.build()).setEphemeral(true).queue();
                 return;
-            }else if (!event.getGuild().getSelfMember().hasPermission(channel, Permission.VOICE_CONNECT,
-            Permission.VOICE_SPEAK)) {
+            }else if (!event.getGuild().getSelfMember().hasPermission(connectedChannel, Permission.VOICE_CONNECT,
+                    Permission.VOICE_SPEAK)) {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setAuthor("⛔ I either don't have permission to join this channel or to speak")
                         .setColor(15844367)
