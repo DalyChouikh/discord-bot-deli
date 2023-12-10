@@ -125,6 +125,7 @@
             <version>3.11.0</version>
 <!--          Set meminitial and memmax-->
           <configuration>
+            <fork>true</fork>
             <meminitial>64m</meminitial>
             <maxmem>256m</maxmem>
             <source>17</source>
