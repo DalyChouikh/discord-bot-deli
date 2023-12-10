@@ -14,4 +14,4 @@ ARG JAR_FILE=target/deli.jar
 COPY ${JAR_FILE} deli.jar
 
 
-ENTRYPOINT ["java","-jar","/deli.jar"]
+ENTRYPOINT ["java","-jar","/bot/deli.jar"]
