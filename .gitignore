@@ -1,8 +1,4 @@
 .vscode/
 .idea/
 .env
-target/classes
-target/generated-sources
-target/maven-archiver
-target/maven-status
-target/original-deli.jar
+target/
