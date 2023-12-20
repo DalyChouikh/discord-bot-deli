@@ -79,9 +79,7 @@ public class Remove extends ListenerAdapter {
                                 User user = pair.getFirst();
                                 EmbedBuilder embed = new EmbedBuilder();
                                 embed.setAuthor(
-                                        "🧹 Removed from queue by " + event.getMember().getUser().getName()
-                                                + "#"
-                                                + event.getMember().getUser().getDiscriminator(),
+                                        "🧹 Removed from queue by " + event.getMember().getUser().getName(),
                                         null, event.getMember().getUser().getEffectiveAvatarUrl())
                                         .setTitle(deletedTrack.getInfo().title, deletedTrack.getInfo().uri)
                                         .setDescription("** Requested by : ** `" + user.getName()  + "`")
