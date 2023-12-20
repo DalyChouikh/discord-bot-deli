@@ -21,7 +21,7 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 public class Bot {
     public final static GatewayIntent[] INTENTS = {GatewayIntent.DIRECT_MESSAGES, GatewayIntent.GUILD_MESSAGES,
-            GatewayIntent.GUILD_MESSAGE_REACTIONS,
+            GatewayIntent.GUILD_MESSAGE_REACTIONS,GatewayIntent.MESSAGE_EMBED_LINKS,
             GatewayIntent.GUILD_VOICE_STATES, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_PRESENCES,
             GatewayIntent.GUILD_EMOJIS_AND_STICKERS, GatewayIntent.SCHEDULED_EVENTS,
             GatewayIntent.MESSAGE_CONTENT};
