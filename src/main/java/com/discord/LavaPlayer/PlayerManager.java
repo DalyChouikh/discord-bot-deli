@@ -8,25 +8,16 @@ import java.util.List;
 import java.util.Map;
 
 import com.discord.Bot;
-import com.github.topisenpai.lavasrc.spotify.SpotifyAudioTrack;
-import com.github.topisenpai.lavasrc.spotify.SpotifySourceManager;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
-import com.sedmelluq.discord.lavaplayer.source.bandcamp.BandcampAudioSourceManager;
-import com.sedmelluq.discord.lavaplayer.source.beam.BeamAudioSourceManager;
-import com.sedmelluq.discord.lavaplayer.source.http.HttpAudioSourceManager;
-import com.sedmelluq.discord.lavaplayer.source.local.LocalAudioSourceManager;
-import com.sedmelluq.discord.lavaplayer.source.soundcloud.SoundCloudAudioSourceManager;
-import com.sedmelluq.discord.lavaplayer.source.twitch.TwitchStreamAudioSourceManager;
-import com.sedmelluq.discord.lavaplayer.source.vimeo.VimeoAudioSourceManager;
-import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioItem;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
+import dev.lavalink.youtube.YoutubeAudioSourceManager;
 import kotlin.Pair;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
@@ -47,8 +38,6 @@ public class PlayerManager {
         this.musicManagers = new HashMap<>();
         this.audioPlayerManager = new DefaultAudioPlayerManager();
         audioPlayerManager.registerSourceManager(new YoutubeAudioSourceManager());
-        audioPlayerManager.registerSourceManager(new SpotifySourceManager(null,System.getenv("SPOTIFY_CLIENT_ID"),System.getenv("SPOTIFY_CLIENT_SECRET"),
-                System.getenv("COUNTRY_CODE"), this.audioPlayerManager));
         AudioSourceManagers.registerRemoteSources(this.audioPlayerManager);
     }
 
@@ -71,7 +60,6 @@ public class PlayerManager {
                 String videoID = uri.getQuery().split("=")[1];
                 String url = "http://img.youtube.com/vi/" + videoID + "/0.jpg";
                 long duration = audioTrack.getInfo().length;
-                System.out.println(Duration.ofMillis(duration));
                 long playTime = 0L;
                 int queue = musicManager.scheduler.queue.size() + 1;
                 if (!musicManager.scheduler.queue.isEmpty()) {
@@ -111,7 +99,6 @@ public class PlayerManager {
                 final List<AudioTrack> tracks = audioPlaylist.getTracks();
                 long length = 0L;
                 if (trackUrl.contains("&list") || (trackUrl.contains("open.spotify.com") && !trackUrl.contains("track"))) {
-                    System.out.println("playlist");
                     for (AudioTrack track : tracks) {
                         musicManager.scheduler.queue(track);
                         length += track.getDuration();
@@ -125,7 +112,6 @@ public class PlayerManager {
                             .setFooter("Developed by Daly. ❤️", Bot.bot.getUsersByName("daly.ch", true).get(0).getAvatarUrl());
                     textChannel.sendMessageEmbeds(embed.build()).queue();
                 } else if (!tracks.isEmpty()) {
-                    System.out.println("track");
                     AudioTrack playingTrack = tracks.get(0);
                     musicManager.scheduler.queue(playingTrack);
                     playingTrack.setUserData(new Pair<User,TextChannel>(user,(TextChannel) textChannel));

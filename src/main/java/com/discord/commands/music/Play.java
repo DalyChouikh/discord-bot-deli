@@ -60,7 +60,7 @@ public class Play extends ListenerAdapter {
 
                 String song = event.getOption("song").getAsString();
                 if (!isUrl(song)) {
-                    song = "ytsearch:" + song  ;
+                    song = "ytmsearch:" + song  ;
                 }
                 event.deferReply(true).complete();
                 event.getHook().editOriginal("\uD83D\uDD0D Searching for **" + song.replaceAll("[a-zA-Z]*search:|audio", "") + "**")
